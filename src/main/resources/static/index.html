@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>权益中心号码查询</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> 
+  		<script type="text/javascript" src="js/jquery.min.js"></script>
+  		
+  		<style type="text/css">
+  			#outside{
+  				/*border:1px solid black;*/
+  				margin: 0 auto;
+  			}
+  			
+  			#inside-top{
+  				margin:50px;
+  			}
+  			
+  			#apiTestModal {
+	            max-height: calc(90vh) !important;
+	            overflow: auto;
+        	}
+  		</style>
+  		
+	</head>
+	
+	<body>
+		<!--外层div-->
+		<div id="outside">
+			<!--里层div上部分-->
+			<div id="inside-top" style="position: relative; width: 80%; margin: 0 auto; margin-top: 50px;">
+				<div id="inside-top-left">
+					<img src="img/权益中心号码查询接口.jpg"/>
+				</div>
+				
+				<div id="inside-top-right" style="position: absolute; top: 100px;right: 200px;">
+					<h2>权益中心号码查询</h2>	
+					<p>查询指定号码的省分、地市信息。</p>
+					<p>1、根据输入的号码查询号码的省分、地市信息。</p>
+					<p>2、查询联通的号码，不查询异网携入的号码。</p>
+					
+				</div>
+				
+				<div id="inside-top-button" style="position: absolute; top: 270px;right: 110px;">
+					<button id="apiTestButton" type="button" style="border-radius: 8px; background-color: orange; cursor: pointer;">在线测试</button>
+					<button id="sdkDownloadButton" type="button" style="border-radius: 8px; background-color: orange;margin-left: 20px; cursor: pointer;">SDK下载</button>
+				</div>
+			</div>
+			
+			<!--里层div下部分-->
+			<div id="inside-bottom" style="position: relative; width: 80%; margin: 0 auto; margin-top: 50px;">
+			
+				<div id="resultTable">
+					<table border="1" style="width: 100%; text-align: center;">
+						<thead>
+						  <td>操作员工号</td>
+						  <td>业务号码</td>
+						  <td>操作</td>
+						</thead>
+						
+						<tr>
+						  <td><input id="staffNumber" type="text" style="width: 80%;" value="SSC00004"/></td>
+						  <td><input id="businessNumber" type="text" style="width: 80%;" value="18607715882"/></td>
+						  <td><button type="button" style="border-radius: 8px; cursor: pointer;" onclick="queryNumberInfo()" >查询</button></td>
+						</tr>
+					
+						<tr>
+						  <td colspan="3"><span style="float: left; text-indent: 2em;">查询结果：</span></td>
+						</tr>
+						
+						<tbody id="resultTbody">
+							<tr>
+							  <td>应答编码</td>
+							  <td id="respCode" colspan="2"></td>
+							</tr>
+							
+							<tr>
+							  <td>错误描述</td>
+							  <td id="respDesc" colspan="2"></td>
+							</tr>
+							
+							<tr>
+							  <td>业务号码</td>
+							  <td colspan="2"></td>
+							</tr>
+							
+							<tr>
+							  <td>省分编码</td>
+							  <td id="provinceCode" colspan="2"></td>
+							</tr>
+							
+							<tr>
+							  <td>地市编码</td>
+							  <td id="cityCode" colspan="2"></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>	
+				
+				  <!-- 身份认证结果 模态框 --> 
+				  <div id="identityCheckResultModal" class="modal fade" tabindex="-1" role="dialog"> 
+				   <div class="modal-dialog" role="document"> 
+				    <div class="modal-content"> 
+				     <div class="modal-header"> 
+				      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button> 
+				      <h4 id="identityCheckResultModalTitle" class="modal-title"></h4> 
+				     </div> 
+				     <div class="modal-body"> 
+				      <p id="identityCheckResultModalDetail"></p> 
+				     </div> 
+				     <div class="modal-footer"> 
+				      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+				      <!--<button type="button" class="btn btn-primary">关闭</button>--> 
+				     </div> 
+				    </div> 
+				    <!-- /.modal-content --> 
+				   </div> 
+				   <!-- /.modal-dialog --> 
+				  </div> 
+				  <!-- /.modal --> 
+				  
+				  <!-- 在线测试 模态框 --> 
+				  <div id="apiTestModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow: hidden;"> 
+				   <div class="modal-dialog" style="height: 100%;width: 90%;"> 
+				    <div class="modal-content" style="height: 100%;width: 100%;"> 
+				     <div class="modal-header"> 
+				      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button> 
+				      <h4 class="modal-title" id="myModalLabel"> 在线测试 </h4> 
+				     </div> 
+				     <div class="modal-body" style="height: 100%;width: 100%;">
+				
+				      <form id="apiTestForm" method="post" target="frames"> 
+				       <input type="hidden" name="message" id="message"> 
+				       <input type="hidden" name="method" id="method"> 
+				      </form> 
+				
+				      <iframe id="frames" name="frames" frameborder="0" style="height: 95%;width: 100%;"> </iframe> 
+				     </div> 
+				    </div> 
+				    <!-- /.modal-content --> 
+				   </div> 
+				   <!-- /.modal --> 
+				  </div>
+  
+			</div>
+			
+		</div>
+		
+		<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) --> 
+	    <script src="js/jquery.min.js"></script> 
+	    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 --> 
+	    <script src="js/bootstrap.min.js"></script> 
+	    <!-- 稳态能力通用JS方法文件 这个地方用来引用皓皓的远程调用能力平台的函数 --> 
+	    <script src="/static/js/api.js"></script>
+	    
+		<script type="text/javascript">
+			/**
+			 * 获取输入的参数并将其 拼接请求报文
+			 * staffNumber 操作员工号
+			 * businessNumber 业务号码
+			 */
+			function getRequestMessageString(staffNumber, businessNumber){
+				var identityCheckReqContext = {
+					"UNI_BSS_ATTACHED":{
+				        "MEDIA_INFO":""
+				    },
+				    "UNI_BSS_HEAD":{
+						"APP_ID":"eSPtczfyiz",
+						"TIMESTAMP":"2020-05-13 11:45:03 324",
+						"TRANS_ID":"20200513114503324342177",
+						"TOKEN":"cdc0f0b23e84690ac0c7d26a0d753c7e"
+					},
+					"UNI_BSS_BODY":{
+				        "EQUITY_QUERY_NUMBER_REQ":{
+				            "STAFF_ID":staffNumber,
+				            "SERIAL_NUMBER":businessNumber,
+				        }
+				    }
+				}
+				return JSON.stringify(identityCheckReqContext); // 将 JavaScript 值转换为 JSON 字符串
+			};
+			
+			/**
+			 * 查询按钮
+			 */
+		    function queryNumberInfo() {
+		    	// 隐藏模态框
+        		$("#identityCheckResultModal").modal('hide');
+        		
+        		// 构造在线测试的回调函数的msg参数
+		        var msg = Object.assign({}, {
+		            requestMethod: "POST",
+		            genMsgType: "manual",
+		            appKey: "",
+		            sendMessage: getRequestMessageString($("#staffNumber").val(), $("#businessNumber").val())
+		        });
+		        msg = Object.assign(msg);
+        		
+		    	// 构造调用皓皓的方法所需要的回调函数
+		    	var setting = Object.assign(msg, {
+		    		successfunc:function (data) {
+                		console.log(data);
+                		responseBody = JSON.parse(data.responseBody);
+		                uniBssHead = responseBody.UNI_BSS_HEAD;
+		                uniBssBody = responseBody.UNI_BSS_BODY;
+		                if (uniBssHead.RESP_CODE != "00000") {
+		                	// 调用失败
+		                	$("#identityCheckResultModalTitle").text("调用失败！");
+		                    $("#identityCheckResultModalDetail").text(uniBssHead.RESP_DESC);
+		                    $("#identityCheckResultModal").modal('show');
+		                } else {
+		                	if (uniBssBody.EQUITY_QUERY_NUMBER_RSP.RESP_CODE != "0000") {
+		                		$("#identityCheckResultModalTitle").text("查询失败！");
+								$("#identityCheckResultModalDetail").text(uniBssBody.EQUITY_QUERY_NUMBER_RSP.RESP_DESC);
+								$("#identityCheckResultModal").modal('show');
+								return;
+		                	}
+		                	
+		                	// 调用成功
+		                	
+		                	// 1.清空原表格内容
+		                	
+		                	// 2.从响应报文中获取数据，给表格赋值
+		                	/*
+						    	var leng = $("#resultTbody tr").length;
+						    	for (var i = 0; i < leng; i++) {
+						    		numberStr = $("#resultTbody tr").eq(i).find("td:nth-child(2)").html();
+						    		console.log(numberStr);
+						    	}
+					    	*/
+		    	
+					    	$("#respCode").text(uniBssBody.EQUITY_QUERY_NUMBER_RSP.RESP_CODE);
+					    	$("#respDesc").text(uniBssBody.EQUITY_QUERY_NUMBER_RSP.RESP_DESC);
+					    	$("#provinceCode").text(uniBssBody.EQUITY_QUERY_NUMBER_RSP.PROVINCE_CODE);
+					    	$("#cityCode").text(uniBssBody.EQUITY_QUERY_NUMBER_RSP.CITY_CODE);
+		    	
+		                }
+		                
+                	},
+	                errorfunc:function () {
+		                alert("请求异常，请稍后再试...")
+		            }
+		    		
+		    	});
+		    	
+		    	// 调用皓皓的远程调用接口的方法
+        		sendTestMessageApi("json_resourceCenter_numberCenter_equityQueryNumber","1", setting)
+		    };
+		    
+			/**
+			 * 在线测试 按钮点击事件
+			 */
+		    $("#apiTestButton").click(function(){
+		 		// 弹出页面，模态框
+		        $("#apiTestModal").modal({
+		            blurring: true
+		        }).modal('show');
+		
+		        $("#message").val(getRequestMessageString($("#staffNumber").val(), $("#businessNumber").val()));
+		        $("#method").val("post");
+		        iframeApi($("#apiTestForm"), 'json_resourceCenter_numberCenter_equityQueryNumber', '1', '');
+		    });
+			
+			/**
+		     * SDK下载 按钮点击事件
+		     */ 
+		    $("#sdkDownloadButton").click(function(){
+		    	/**
+		    	 * 参1：能力英文名
+		    	 * 参2：能力版本
+		    	 * 参3：appId
+		    	 */
+		        getDemoSDK("json_resourceCenter_numberCenter_equityQueryNumber", "1", "");
+		    });
+		    
+		</script>
+	</body>
+</html>
