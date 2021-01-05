@@ -1,5 +1,6 @@
 package com.example.utils;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -15,7 +16,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
-
+import java.util.Map;
 
 
 /**
@@ -253,11 +254,20 @@ public class AesUserEngineerRelUtis {
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		//加密
 		String str = "1233";
-		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(str.getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
+		Map map = Maps.newHashMap();
+		map.put("engineerAccount","18322339149");
+		map.put("developId","91-0910");
+		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(map.toString().getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 
-		System.out.println("en==="+enStr);
-		// 解密
-		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(enStr), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
-		System.out.println("de==="+deStr);
+//		System.out.println("en==="+enStr);
+//		// 解密
+//
+		String a = "c0be9cbf2b4e2cb032ece017953b5c0faaddfb80b8acd325ad56e469b05397dc59bf3c17d663181e62909a98289365fe32b8cc65de606c102516486fb3726246";
+//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+//		System.out.println("de==="+deStr);
+
+		String json = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a),
+				AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+		System.out.println(json);
 	}
 }

@@ -26,8 +26,8 @@ public class ListMapToListPojo {
         }
         ObjectMapper objectMapper = new ObjectMapper();
         CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, Person.class);
+        System.out.println(listType);
         List<Person> rspList = objectMapper.readValue(objectMapper.writeValueAsBytes(list), listType);
-        System.out.println(1);
         System.out.println(rspList);
 //        Date d = new Date();
 //        System.out.println(d);
