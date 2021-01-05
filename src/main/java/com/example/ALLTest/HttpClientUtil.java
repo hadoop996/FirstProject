@@ -87,7 +87,7 @@ public class HttpClientUtil {
      */
     public String sendHttpPost(String httpUrl, Map<String, String> maps) {
         HttpPost httpPost = new HttpPost(httpUrl);
-        httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
+        httpPost.addHeader("Content-Type", "application/json;charset=UTF-8");
         // 创建参数队列
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         for (String key : maps.keySet()) {

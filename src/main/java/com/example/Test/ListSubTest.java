@@ -1,5 +1,6 @@
 package com.example.Test;
 
+import net.sf.json.JSONObject;
 import org.assertj.core.util.Lists;
 
 import java.util.List;
@@ -10,10 +11,8 @@ import java.util.List;
  */
 public class ListSubTest {
     public static void main(String[] args) {
-        List<Integer> list = Lists.newArrayList();
-        int i = 0;
-        list.add(i++);
-        System.out.println(list);
-        System.out.println(++i);
+        JSONObject jsonObject = null;
+//        jsonObject.put("a","a");
+        System.out.println(jsonObject.isEmpty());
     }
 }

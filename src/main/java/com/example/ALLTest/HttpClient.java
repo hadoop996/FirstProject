@@ -14,18 +14,21 @@ import java.util.Map;
 public class HttpClient {
 
     public static void main(String[] args) {
-        String url = "http://localhost:8082/api/navigation/getEparchyCount";
+        String url = "http://localhost:8080//canal/manage/app/offline";
         String sendHttpPost = HttpClientUtil.getInstance().sendHttpPost(url);
         System.out.println(sendHttpPost);
     }
 
     @Test
     public void withParam(){
-        String url = "http://localhost:8082/api/navigation/getBanner";
-        Map<String,Double> map = Maps.newHashMap();
-        map.put("lng",136.12);
-        map.put("lat",39.12);
-        String s = HttpClientUtil.getInstance().sendHttpPost(url, JsonUtils.toString(map));
+        String url ="http://localhost:8080/canal/manage/a";
+        Map<String,String> map = Maps.newHashMap();
+        map.put("token","a");
+        map.put("client_ip","b");
+        map.put("user_id","cb");
+        map.put("enc_flag","b");
+        map.put("login_valid","b");
+        String s = HttpClientUtil.getInstance().sendHttpPost(url, map);
         System.out.println(s);
     }
 
