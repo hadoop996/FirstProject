@@ -13,5 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Person {
     private String name;
+    private String tall;
     private int age;
+
 }
