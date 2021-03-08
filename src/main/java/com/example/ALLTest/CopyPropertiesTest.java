@@ -4,7 +4,6 @@ import com.example.domain.Person;
 import com.example.domain.Student;
 import java.lang.reflect.InvocationTargetException;
 import static org.apache.commons.beanutils.BeanUtils.copyProperties;
-
 /**
  * 对象直接映射存在相同属性的对象得值
  * @author 郝少杰
@@ -18,10 +17,9 @@ public class CopyPropertiesTest {
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
         Person person = new Person();
         person.setTall("123");
-        person.setName("李四");
         Student student = new Student("张三",123,"四平");
 
-        copyProperties(student,person);
+        copyProperties(person,student);
         System.out.println(person);
         System.out.println(student);
     }

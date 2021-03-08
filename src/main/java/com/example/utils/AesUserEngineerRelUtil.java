@@ -1,5 +1,10 @@
 package com.example.utils;
 
+import com.example.domain.Engineer;
+import com.example.domain.User;
+import com.google.common.collect.Maps;
+import com.google.gson.JsonObject;
+import net.sf.json.JSONObject;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -15,7 +20,10 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -247,17 +255,67 @@ public class AesUserEngineerRelUtil {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//秘钥
-		String ENKEY = "a095c8e01cdc7abaa85ebca832e4ca57";
-		//向量
+		//秘钥、向量-生产
+//		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
+//		String IV = "7bf502cebdce578d67c333fcc5631067";
+		//秘钥、向量-测试
+		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
 		String IV = "7bf502cebdce578d67c333fcc5631067";
-		//加密
-		String str = "47b6698a1b2dfcb59281e68e3786670c502db2d53fa4938e1c901810ea762c6b44e6a9b6a5750ae6280437e7c96623ab";
-		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(str.getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("phone","18618473899");
 
-		System.out.println("en==="+enStr);
+
+
+//
+
+
+//		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
+//		System.out.println(enStr);
+//		// 解密
+//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(JsonUtils.toString(jsonObject)), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+//		System.out.println("de==="+deStr);
+
+//		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
+
+		String a = "fd2c9a6e424d89ed213fa223872ba8381b9186362762a292e64e02c443cc8952594aed24687c78a182fe85e711730f5e6cec68d55f04f59a1d2207b6bf6efefc547b6093406b5444ffcd58884377db968f2afb29b8af052b548d4edfcbc1af0a";
+//		System.out.println(enStr);
 		// 解密
-		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(str), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
-		System.out.println("de==="+deStr);
+		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+		System.out.println(deStr);
 	}
+
+//	public static String mianmi(){
+//		Date d = new Date();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//
+//		User user = new User();
+//		user.setAddress("生产测试地址");
+//		user.setCardId("1");
+//		user.setCardType("1");
+//		user.setCity("110");
+//		user.setMobile("18612081234");
+//		user.setName("生产测试宽带账号");
+//		user.setNumber("1122334455");
+//		user.setProductId("123");
+//		user.setProductName("生产测试商品");
+//		user.setProvince("11");
+//
+//		Engineer engineer = new Engineer();
+//		engineer.setCity("110");
+//		engineer.setDevelopDepartId("91-0910");
+//		engineer.setDevelopDepartName("生产测试渠道名称");
+//		engineer.setDevelopId("1107663252");
+//		engineer.setDevelopName("姜圆贺");
+//		engineer.setState("1");
+//		engineer.setDevelopStaffId("18322339149");
+//		engineer.setId("18612345678");
+//		engineer.setMobile("18618473899");
+//		engineer.setName("姜圆贺");
+//		engineer.setProvince("11");
+//
+//		JSONObject jsonObject = new JSONObject();
+//		jsonObject.put("engineer",engineer);
+//		jsonObject.put("user",user);
+//		jsonObject.put("bindTime",sdf.format(d));
+//	}
 }

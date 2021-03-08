@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.TestMapper">
+
+	<select id="getSql1" resultType="String">
+	  select engineer_name from t_inner_mongolia4 where brandbond_code = '0470A3206917'
+	</select>
+
+	<insert id="insertSql" parameterType="java.util.List">
+		insert into test_insert(name ,age)
+		values
+		<foreach collection="list" item='pa' index="index" separator=','>
+			(#{pa.name}, #{pa.age})
+		</foreach>
+	</insert>
+</mapper>
