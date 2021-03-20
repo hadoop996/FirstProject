@@ -27,12 +27,12 @@ public class MarketDoTaskDemo {
         /**
          * 初始化客户端
          */
-        String url = "http://132.38.0.85:80/oppf";
+        String url = "http://ecstest0517.10010.com/oppf";
         //创建应用时选择的签名加密方式
         SignAlgorithmType type = SignAlgorithmType.HmacSHA256;
         //创建应用后应用基本信息中的密钥
         //String signSecurty = "037637f1fadda428b3fe6b30b2050ddc";
-        String signSecurty = "71173e0b4f2dbdc23e9e6a7d54954839";
+        String signSecurty = "23A87CE53E347B682455FA56FA8141775B61B6A1AB693BAD20014DB4BA82A500";
         OpenEsbClient client = new OpenEsbClient(url,type,signSecurty);
         /**
          * 系统参数

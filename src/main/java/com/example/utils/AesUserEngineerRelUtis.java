@@ -249,7 +249,7 @@ public class AesUserEngineerRelUtis {
 	 */
 	public static void main(String[] args) {
 		//秘钥
-		String ENKEY = "a095c8e01cdc7abaa85ebca832e4ca57";
+		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
 		//向量
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		//加密
@@ -262,7 +262,7 @@ public class AesUserEngineerRelUtis {
 //		System.out.println("en==="+enStr);
 //		// 解密
 //
-		String a = "c0be9cbf2b4e2cb032ece017953b5c0faaddfb80b8acd325ad56e469b05397dc59bf3c17d663181e62909a98289365fe32b8cc65de606c102516486fb3726246";
+		String a = "d1e98bd03907255505fcb0edaf55a8f00ab1f8abc8cac8d7665e0f36f73dbd2d";
 //		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
 //		System.out.println("de==="+deStr);
 

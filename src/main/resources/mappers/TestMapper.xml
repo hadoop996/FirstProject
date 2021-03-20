@@ -3,7 +3,7 @@
 <mapper namespace="com.example.mapper.TestMapper">
 
 	<select id="getSql1" resultType="String">
-	  select engineer_name from t_inner_mongolia4 where brandbond_code = '0470A3206917'
+	  select username from ${table}
 	</select>
 
 	<insert id="insertSql" parameterType="java.util.List">
@@ -12,5 +12,26 @@
 		<foreach collection="list" item='pa' index="index" separator=','>
 			(#{pa.name}, #{pa.age})
 		</foreach>
+	</insert>
+
+	<insert id="insertUser" >
+		insert ignore into t_user_engineer_rel(user_broadcast ,user_phone)
+		values ('123123','123123')
+	</insert>
+
+	<insert id="insertEngineerUserList" parameterType="java.util.List">
+		insert into t_henan(engineer_phone,brandbond_code) values
+		<foreach collection="param1" item='pa' index="index" separator=','>
+			${pa}
+		</foreach>
+
+	</insert>
+
+    <insert id="insertUserList">
+		insert into t_beijing_03194(engineer_phone,brandbond_code) values
+		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
+			(#{pa.engineerPhone},#{pa.brandbondCode})
+		</foreach>
+
 	</insert>
 </mapper>
