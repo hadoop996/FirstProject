@@ -26,4 +26,6 @@ public interface TestMapper {
     void insertEngineerUserList(@Param("param1")List<String> list);
 
     void insertUserList(@Param("userEngineerPOS") List<UserEngineerPO> userEngineerPOS);
+
+    void insertDemo();
 }

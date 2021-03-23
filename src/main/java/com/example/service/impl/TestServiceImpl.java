@@ -18,9 +18,11 @@ public class TestServiceImpl implements ApplicationRunner {
 
     @Resource
     private TetService tetService;
-
+    @Resource
+    private TransactionServiceImpl transactionService;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        tetService.getSql();
+//        tetService.getSql();
+        transactionService.transactionTest();
     }
 }

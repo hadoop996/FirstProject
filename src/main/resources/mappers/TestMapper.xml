@@ -28,10 +28,13 @@
 	</insert>
 
     <insert id="insertUserList">
-		insert into t_beijing_03194(engineer_phone,brandbond_code) values
+		insert into t_beijing_engineer_all(engineer_phone,brandbond_code) values
 		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
 			(#{pa.engineerPhone},#{pa.brandbondCode})
 		</foreach>
 
+	</insert>
+	<insert id="insertDemo">
+		insert into d_evaluate_report(engineer_account) values('123123')
 	</insert>
 </mapper>

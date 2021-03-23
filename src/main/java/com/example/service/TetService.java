@@ -14,5 +14,4 @@ public interface TetService {
     @Async
     void asyn1() throws InterruptedException;
 
-
 }
