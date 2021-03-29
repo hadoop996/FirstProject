@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.mapper.TestMapper;
 import com.example.service.TransactionService;
+import com.example.service.UpdateService;
 import com.ohaotian.plugin.base.exception.ZTBusinessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
 @Service
 public class TransactionServiceImpl implements TransactionService {
     @Resource
-    UpdateServiceImpl updateService;
+    UpdateService updateService;
 
     @Override
     public void transactionTest() {

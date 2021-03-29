@@ -9,10 +9,11 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 @MapperScan("com.example.mapper")
-@EnableAsync(proxyTargetClass=true)
 @EnableTransactionManagement
+@EnableAsync
 public class DemoApplication {
 
     @Autowired

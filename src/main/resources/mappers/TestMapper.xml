@@ -5,6 +5,12 @@
 	<select id="getSql1" resultType="String">
 	  select username from ${table}
 	</select>
+	<select id="selectCount" resultType="java.lang.Integer">
+		select count(*) from t_shandong1
+	</select>
+	<select id="getEngineerMap" resultType="java.lang.String">
+		select CONCAT('0',brandbond_code) from t_inner_mongolia4
+	</select>
 
 	<insert id="insertSql" parameterType="java.util.List">
 		insert into test_insert(name ,age)
@@ -28,7 +34,7 @@
 	</insert>
 
     <insert id="insertUserList">
-		insert into t_beijing_engineer_all(engineer_phone,brandbond_code) values
+		insert into t_heilongjiang1(engineer_phone,brandbond_code) values
 		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
 			(#{pa.engineerPhone},#{pa.brandbondCode})
 		</foreach>
@@ -36,5 +42,29 @@
 	</insert>
 	<insert id="insertDemo">
 		insert into d_evaluate_report(engineer_account) values('123123')
+	</insert>
+    <insert id="insertUserBroadBandList">
+		insert into t_user_engineer_rel_repetition(engineer_account, engineer_name, engineer_province, engineer_eparchy,
+		department, district_code, engineer_status, user_broadcast, bind_time,
+		install_addr, user_phone, product_id, product_name, user_cert_type,
+		user_cert_no, user_province, user_eparchy, user_name, status, create_time,
+		update_time, note, source, date_type, develop_id, develop_name,
+		develop_staff_id, develop_depart_id, develop_depart_name)
+		values
+		<foreach collection="list" item='pa' index="index" separator=','>
+			(#{pa.engineerAccount}, null, #{pa.engineerProvince}, null, null,
+			null, null, #{pa.userBroadcast}, now(), null,
+			null,null, null, null, null, null,
+			null,null, 2, now(), now(), #{pa.note}, null, null,
+			null,null,null, null,null)
+		</foreach>
+	</insert>
+
+	<insert id="insertUserList2">
+		insert into t_heilongjiang2(engineer_phone,brandbond_code) values
+		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
+			(#{pa.engineerPhone},#{pa.brandbondCode})
+		</foreach>
+
 	</insert>
 </mapper>

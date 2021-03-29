@@ -262,15 +262,16 @@ public class AesUserEngineerRelUtil {
 		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("phone","18618473899");
+		jsonObject.put("engineer","18635054121");
+		jsonObject.put("developId","1901031794");
 
 
 
 //
 
 
-//		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
-//		System.out.println(enStr);
+		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
+		System.out.println(enStr);
 //		// 解密
 //		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(JsonUtils.toString(jsonObject)), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
 //		System.out.println("de==="+deStr);

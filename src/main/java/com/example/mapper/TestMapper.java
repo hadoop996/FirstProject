@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+import com.example.domain.BroadBandInfo;
 import com.example.domain.PersonPo;
 import com.example.domain.UserEngineerPO;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,4 +29,13 @@ public interface TestMapper {
     void insertUserList(@Param("userEngineerPOS") List<UserEngineerPO> userEngineerPOS);
 
     void insertDemo();
+
+    void insertUserBroadBandList(List<BroadBandInfo> checkBroadBandList);
+
+    int selectCount();
+
+    void insertUserList2(@Param("userEngineerPOS") List<UserEngineerPO> userEngineerPOS);
+
+    List<String> getEngineerMap();
 }
+

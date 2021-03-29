@@ -16,12 +16,12 @@ public class UpdateServiceImpl implements UpdateService {
     @Resource
     TestMapper testDao;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     @Override
     public void update(){
         System.out.println("进入事务");
         testDao.insertDemo();
         System.out.println("报错隔离");
-//        throw new RuntimeException("123");
+        throw new RuntimeException("123");
     }
 }

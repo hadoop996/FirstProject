@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.service.TetService;
+import com.example.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,10 +20,10 @@ public class TestServiceImpl implements ApplicationRunner {
     @Resource
     private TetService tetService;
     @Resource
-    private TransactionServiceImpl transactionService;
+    private TransactionService transactionService;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//        tetService.getSql();
-        transactionService.transactionTest();
+        tetService.getSql();
+//        transactionService.transactionTest();
     }
 }
