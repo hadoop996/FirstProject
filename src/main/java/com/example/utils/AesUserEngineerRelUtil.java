@@ -256,67 +256,56 @@ public class AesUserEngineerRelUtil {
 	 */
 	public static void main(String[] args) {
 		//秘钥、向量-生产
-//		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
-//		String IV = "7bf502cebdce578d67c333fcc5631067";
+//		String ENKEY = "b75072a4b0d040d69e1a624181d9babe";
+//		String IV = "8c4e994c235f4242b30b02d34beec03a";
 		//秘钥、向量-测试
 		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("engineer","18635054121");
-		jsonObject.put("developId","1901031794");
-
-
-
-//
-
-
+		jsonObject.put("phone","19122929929");
+//		String data = mianmi();
 		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 		System.out.println(enStr);
+//		String a = "72030dca5a9910925e2668380e41ecf4603521f3ab906fcffff5e21030147d095fff7138c4729de9b690bf30d1af930c";
 //		// 解密
-//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(JsonUtils.toString(jsonObject)), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
-//		System.out.println("de==="+deStr);
-
-//		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
-
-		String a = "fd2c9a6e424d89ed213fa223872ba8381b9186362762a292e64e02c443cc8952594aed24687c78a182fe85e711730f5e6cec68d55f04f59a1d2207b6bf6efefc547b6093406b5444ffcd58884377db968f2afb29b8af052b548d4edfcbc1af0a";
-//		System.out.println(enStr);
-		// 解密
-		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
-		System.out.println(deStr);
+//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+//		System.out.println(deStr);
 	}
 
-//	public static String mianmi(){
-//		Date d = new Date();
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//
-//		User user = new User();
-//		user.setAddress("生产测试地址");
-//		user.setCardId("1");
-//		user.setCardType("1");
-//		user.setCity("110");
-//		user.setMobile("18612081234");
-//		user.setName("生产测试宽带账号");
-//		user.setNumber("1122334455");
-//		user.setProductId("123");
-//		user.setProductName("生产测试商品");
-//		user.setProvince("11");
-//
-//		Engineer engineer = new Engineer();
-//		engineer.setCity("110");
-//		engineer.setDevelopDepartId("91-0910");
-//		engineer.setDevelopDepartName("生产测试渠道名称");
-//		engineer.setDevelopId("1107663252");
-//		engineer.setDevelopName("姜圆贺");
-//		engineer.setState("1");
-//		engineer.setDevelopStaffId("18322339149");
-//		engineer.setId("18612345678");
-//		engineer.setMobile("18618473899");
-//		engineer.setName("姜圆贺");
-//		engineer.setProvince("11");
-//
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("engineer",engineer);
-//		jsonObject.put("user",user);
-//		jsonObject.put("bindTime",sdf.format(d));
-//	}
+	public static String mianmi(){
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		User user = new User();
+		user.setAddress("金融街通泰大厦");
+		user.setCardId("7893671231921");
+		user.setCardType("1");
+		user.setCity("110");
+		user.setMobile("18612081234");
+		user.setName("张飞");
+		user.setNumber("1398722311");
+		user.setProductId("123");
+		user.setProductName("生产测试商品");
+		user.setProvince("11");
+
+		Engineer engineer = new Engineer();
+		engineer.setCity("110");
+		engineer.setDevelopDepartId("11a0069");
+		engineer.setDevelopDepartName("东坝集团直销团队");
+		engineer.setDevelopId("11903001494");
+		engineer.setDevelopName("测试渠道1");
+		engineer.setState("1");
+		engineer.setDevelopStaffId("18322339149");
+		engineer.setId("18612345678");
+		engineer.setMobile("19577770001");
+		engineer.setName("李芳");
+		engineer.setProvince("11");
+
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("engineer",engineer);
+		jsonObject.put("user",user);
+		jsonObject.put("bindTime",sdf.format(d));
+		return jsonObject.toString();
+	}
 }

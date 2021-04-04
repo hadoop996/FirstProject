@@ -34,7 +34,7 @@
 	</insert>
 
     <insert id="insertUserList">
-		insert into t_heilongjiang1(engineer_phone,brandbond_code) values
+		insert into t_hebei1(engineer_phone,brandbond_code) values
 		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
 			(#{pa.engineerPhone},#{pa.brandbondCode})
 		</foreach>
@@ -61,7 +61,7 @@
 	</insert>
 
 	<insert id="insertUserList2">
-		insert into t_heilongjiang2(engineer_phone,brandbond_code) values
+		insert into t_beijing0403_new(engineer_phone,brandbond_code) values
 		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
 			(#{pa.engineerPhone},#{pa.brandbondCode})
 		</foreach>

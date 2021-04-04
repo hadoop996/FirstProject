@@ -50,17 +50,20 @@ public class TetServiceImpl implements TetService{
         List<String> failList = new ArrayList<String>();
         List<String> engineerList = new ArrayList<>();
         List<String> dangyuan = new ArrayList<>();
-        Map<String, String> beijing = beijing("D:\\C盘备份\\绑定关系整理\\黑龙江\\黑龙江-用户绑定关系\\黑龙江.csv", 1);
-//        for (int i =1 ;i<=8 ;i++){
-         exportBeijing("D:\\C盘备份\\绑定关系整理\\黑龙江\\黑龙江-用户绑定关系\\黑龙江-用户绑定关系.csv",1,
+//        List<String> hebeiList = getHebeiList();
+        Map<String, String> beijing = beijing("D:\\C盘备份\\绑定关系整理\\新北京\\北京.csv", 1);
+//        int i = 1;
+//        for (String str:hebeiList){
+         exportBeijing("D:\\C盘备份\\绑定关系整理\\新北京\\北分数据.txt",1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan);
+//         i++;
 //        }
-        engineerNul("D:\\C盘备份\\绑定关系整理\\黑龙江\\黑龙江-用户绑定关系\\失败工程师不存在.txt",errEngineer);
+        engineerNul("D:\\C盘备份\\绑定关系整理\\新北京\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\C盘备份\\绑定关系整理\\黑龙江\\黑龙江-用户绑定关系\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\C盘备份\\绑定关系整理\\新北京\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\C盘备份\\绑定关系整理\\黑龙江\\黑龙江-用户绑定关系\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\C盘备份\\绑定关系整理\\新北京\\失败工程师手机号.txt",engineerPhone);
 
         log.error("总数据量{}",total);
         log.error("工程师总量{}",listEngineer.size());
@@ -70,6 +73,24 @@ public class TetServiceImpl implements TetService{
         log.error("宽带账号为空{}",broadbandPhoneNull);
         log.error("工程师不存在{}",engineerNull);
         log.error("长度缺失{}",length);
+    }
+
+    private List<String> getHebeiList() {
+        List<String> list = new ArrayList<>();
+        list.add("保定1");
+        list.add("保定2");
+        list.add("沧州");
+        list.add("承德");
+        list.add("邯郸");
+        list.add("衡水");
+        list.add("廊坊");
+        list.add("秦皇岛");
+        list.add("石家庄1");
+        list.add("石家庄2");
+        list.add("唐山");
+        list.add("邢台");
+        list.add("张家口");
+        return list;
     }
 
     public void export2SQL(String inputFile, int skipRecords) throws Exception {
@@ -107,7 +128,7 @@ public class TetServiceImpl implements TetService{
                               List<String> dangyuan) throws Exception {
 //        Map<String, String> map = getMap();
         FileInputStream fins = new FileInputStream(inputFile);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;
@@ -116,12 +137,13 @@ public class TetServiceImpl implements TetService{
         List<UserEngineerPO> fail = new ArrayList<>(10000);
         int y = 0;
         while ((line = reader.readLine()) != null) {
-            String[] fields = line.split("\\,");
+            String[] fields = line.split("\\|");
             if (fields == null || fields.length != 2) {
                 failList.add(line + "\\|数据为空");
                 continue;
             }
-            if (fields[1].equals("")) {
+            
+            if (fields[0].equals("")) {
                 failList.add(line + "\\|手机号为空");
                 engineerPhoneNull++;
                 continue;
@@ -131,56 +153,56 @@ public class TetServiceImpl implements TetService{
 //                length++;
 //                continue;
 //            }
-            if (fields[3].equals("")) {
+            if (fields[1].equals("")) {
                 failList.add(line + "\\|宽带账号为空");
                 broadbandPhoneNull++;
                 continue;
             }
 
-            if (listCount.contains(fields[3])) {
+            if (listCount.contains(fields[1])) {
                 failList.add(line + "\\|宽带账号重复");
-                checkBroadBandList.add(new BroadBandInfo(fields[1], fields[3], "宽带账号重复", "51"));
+                checkBroadBandList.add(new BroadBandInfo(fields[0], fields[1], "宽带账号重复", "51"));
                 broadband++;
                 continue;
             }
-//            if (!StringUtils.isBlank(map.get(fields[3]))){
+//            if (!StringUtils.isBlank(map.get(fields[1]))){
 //                continue;
 //            }
-            if (!engineerPhone.contains(fields[1])) {
-                engineerPhone.add(fields[1]);
+            if (!engineerPhone.contains(fields[0])) {
+                engineerPhone.add(fields[0]);
             }
-            listEngineer.add(fields[1]);
-            listCount.add(fields[3]);
-            if (!StringUtils.isBlank(beijing.get(fields[1]))) {
-                userEngineerPOS.add(new UserEngineerPO(fields[1], fields[3]));
+            listEngineer.add(fields[0]);
+            listCount.add(fields[1]);
+            if (!StringUtils.isBlank(beijing.get(fields[0]))) {
+                userEngineerPOS.add(new UserEngineerPO(fields[0], fields[1]));
             } else {
-                if (!errEngineer.contains(fields[1])) {
-                    errEngineer.add(fields[1]);
+                if (!errEngineer.contains(fields[0])) {
+                    errEngineer.add(fields[0]);
                 }
-                failList.add(line);
+                failList.add(line+ "\\|工程师不存在");
                 engineerNull++;
+                continue;
             }
             if (userEngineerPOS.size() == 10000) {
-                if (size < 102) {
-                    testDao.insertUserList(userEngineerPOS);
-                    total = total + userEngineerPOS.size();
-                    userEngineerPOS = new ArrayList<>(10000);
-                    log.info("第{}次执行，总数据量{}", size, total);
-                    size++;
-                } else {
+//                if (i <7) {
+//                    testDao.insertUserList(userEngineerPOS);
+//                    total = total + userEngineerPOS.size();
+//                    userEngineerPOS = new ArrayList<>(10000);
+//                    log.info("第{}次执行，总数据量{}", size, total);
+//                    size++;
+//                } else {
                     testDao.insertUserList2(userEngineerPOS);
                     total = total + userEngineerPOS.size();
                     userEngineerPOS = new ArrayList<>(10000);
                     log.info("第{}次执行，总数据量{}", size, total);
                     size++;
-                }
+//                }
 //                }
             }
             if (checkBroadBandList.size() == 100) {
                 testDao.insertUserBroadBandList(checkBroadBandList);
             }
         }
-        log.info("工程师手机号不存在{}", y);
         if (!userEngineerPOS.isEmpty()) {
             total = total + userEngineerPOS.size();
             testDao.insertUserList2(userEngineerPOS);
