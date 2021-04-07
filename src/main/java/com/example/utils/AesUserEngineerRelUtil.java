@@ -256,21 +256,21 @@ public class AesUserEngineerRelUtil {
 	 */
 	public static void main(String[] args) {
 		//秘钥、向量-生产
-//		String ENKEY = "b75072a4b0d040d69e1a624181d9babe";
-//		String IV = "8c4e994c235f4242b30b02d34beec03a";
+		String ENKEY = "b75072a4b0d040d69e1a624181d9babe";
+		String IV = "8c4e994c235f4242b30b02d34beec03a";
 		//秘钥、向量-测试
-		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
-		String IV = "7bf502cebdce578d67c333fcc5631067";
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("engineer","18635054121");
-		jsonObject.put("phone","19122929929");
-//		String data = mianmi();
-		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(jsonObject).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
+//		String ENKEY = "a78092a4b0d040d69e1a624181d9babe";
+//		String IV = "7bf502cebdce578d67c333fcc5631067";
+//		JSONObject jsonObject = new JSONObject();
+//		jsonObject.put("engineer","19122929929");
+//		jsonObject.put("phone","19122929929");
+		String data = mianmi();
+		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(JsonUtils.toString(data).getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 		System.out.println(enStr);
 //		String a = "72030dca5a9910925e2668380e41ecf4603521f3ab906fcffff5e21030147d095fff7138c4729de9b690bf30d1af930c";
 //		// 解密
-//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
-//		System.out.println(deStr);
+		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(enStr), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+		System.out.println(deStr);
 	}
 
 	public static String mianmi(){

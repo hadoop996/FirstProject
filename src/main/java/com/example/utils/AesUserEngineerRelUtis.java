@@ -1,5 +1,6 @@
 package com.example.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
@@ -253,13 +254,12 @@ public class AesUserEngineerRelUtis {
 		//向量
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		//加密
-		String str = "1233";
-		Map map = Maps.newHashMap();
-		map.put("engineerAccount","18322339149");
-		map.put("developId","91-0910");
+		JSONObject map = new JSONObject();
+		map.put("phone","18655270061");
+//		map.put("developId","91-0910");
 		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(map.toString().getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 
-//		System.out.println("en==="+enStr);
+		System.out.println(enStr);
 //		// 解密
 //
 		String a = "d1e98bd03907255505fcb0edaf55a8f00ab1f8abc8cac8d7665e0f36f73dbd2d";

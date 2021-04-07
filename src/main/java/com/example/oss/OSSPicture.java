@@ -9,8 +9,8 @@ import java.io.IOException;
  */
 public class OSSPicture {
     public static void main(String[] args) throws IOException {
-        FileInputStream in = new FileInputStream("C:\\Users\\10211\\Desktop\\郝少杰\\哇咔.jpg");
+        FileInputStream in = new FileInputStream("C:\\Users\\10211\\Desktop\\郝少杰\\马篮子和钟无艳.jpg");
 //        byte[] bytes = ByteUtils.toByteArray(in);
-        AliyunOSSUtil.putFile(in,"哇咔.jpg");
+        AliyunOSSUtil.putFile(in,"马篮子和钟无艳.jpg");
     }
 }
