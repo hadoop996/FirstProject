@@ -1,21 +1,16 @@
 package com.example.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.domain.BroadBandInfo;
-import com.example.domain.BroadbandBO;
 import com.example.domain.UserEngineerPO;
 import com.example.mapper.TestMapper;
 import com.example.service.TetService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -51,19 +46,19 @@ public class TetServiceImpl implements TetService{
         List<String> engineerList = new ArrayList<>();
         List<String> dangyuan = new ArrayList<>();
 //        List<String> hebeiList = getHebeiList();
-        Map<String, String> beijing = beijing("D:\\C盘备份\\绑定关系整理\\新北京\\北京.csv", 1);
+        Map<String, String> beijing = beijing("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\辽宁.csv", 1);
 //        int i = 1;
 //        for (String str:hebeiList){
-         exportBeijing("D:\\C盘备份\\绑定关系整理\\新北京\\北分数据.txt",1,
+         exportBeijing("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\20210330_kd.csv",1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan);
 //         i++;
 //        }
-        engineerNul("D:\\C盘备份\\绑定关系整理\\新北京\\失败工程师不存在.txt",errEngineer);
+        engineerNul("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\C盘备份\\绑定关系整理\\新北京\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\C盘备份\\绑定关系整理\\新北京\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\失败工程师手机号.txt",engineerPhone);
 
         log.error("总数据量{}",total);
         log.error("工程师总量{}",listEngineer.size());
@@ -128,7 +123,7 @@ public class TetServiceImpl implements TetService{
                               List<String> dangyuan) throws Exception {
 //        Map<String, String> map = getMap();
         FileInputStream fins = new FileInputStream(inputFile);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;
@@ -137,14 +132,19 @@ public class TetServiceImpl implements TetService{
         List<UserEngineerPO> fail = new ArrayList<>(10000);
         int y = 0;
         while ((line = reader.readLine()) != null) {
-            String[] fields = line.split("\\|");
-            if (fields == null || fields.length != 2) {
-                failList.add(line + "\\|数据为空");
+            String[] fields = line.split("\\,");
+            if (fields == null || fields.length != 7) {
+                failList.add(line + "|数据为空");
                 continue;
             }
-            
-            if (fields[0].equals("")) {
-                failList.add(line + "\\|手机号为空");
+
+            if (fields[4].replace("\"", "").equals("")) {
+                failList.add(line + "|手机号为空");
+                engineerPhoneNull++;
+                continue;
+            }
+            if (fields[6].replace("\"", "").equals("")) {
+                failList.add(line + "|宽带编码为空");
                 engineerPhoneNull++;
                 continue;
             }
@@ -153,33 +153,34 @@ public class TetServiceImpl implements TetService{
 //                length++;
 //                continue;
 //            }
-            if (fields[1].equals("")) {
-                failList.add(line + "\\|宽带账号为空");
+//            fields[6].replace("\"", "") = fields[6].replace("\"", "").substring(0, fields[6].replace("\"", "").length() - 1);
+            if (fields[6].replace("\"", "").equals("")) {
+                failList.add(line + "|宽带账号为空");
                 broadbandPhoneNull++;
                 continue;
             }
 
-            if (listCount.contains(fields[1])) {
-                failList.add(line + "\\|宽带账号重复");
-                checkBroadBandList.add(new BroadBandInfo(fields[0], fields[1], "宽带账号重复", "51"));
+            if (listCount.contains(fields[6].replace("\"", ""))) {
+                failList.add(line + "|宽带账号重复");
+                checkBroadBandList.add(new BroadBandInfo(fields[4].replace("\"", ""), fields[6].replace("\"", ""), "宽带账号重复", "51"));
                 broadband++;
                 continue;
             }
-//            if (!StringUtils.isBlank(map.get(fields[1]))){
+//            if (!StringUtils.isBlank(map.get(fields[6].replace("\"", "")))){
 //                continue;
 //            }
-            if (!engineerPhone.contains(fields[0])) {
-                engineerPhone.add(fields[0]);
+            if (!engineerPhone.contains(fields[4].replace("\"", ""))) {
+                engineerPhone.add(fields[4].replace("\"", ""));
             }
-            listEngineer.add(fields[0]);
-            listCount.add(fields[1]);
-            if (!StringUtils.isBlank(beijing.get(fields[0]))) {
-                userEngineerPOS.add(new UserEngineerPO(fields[0], fields[1]));
+            listEngineer.add(fields[4].replace("\"", ""));
+            listCount.add(fields[6].replace("\"", ""));
+            if (!StringUtils.isBlank(beijing.get(fields[4].replace("\"", "")))) {
+                userEngineerPOS.add(new UserEngineerPO(fields[4].replace("\"", ""), fields[6].replace("\"", "")));
             } else {
-                if (!errEngineer.contains(fields[0])) {
-                    errEngineer.add(fields[0]);
+                if (!errEngineer.contains(fields[4].replace("\"", ""))) {
+                    errEngineer.add(fields[4].replace("\"", ""));
                 }
-                failList.add(line+ "\\|工程师不存在");
+                failList.add(line+ "|工程师不存在");
                 engineerNull++;
                 continue;
             }

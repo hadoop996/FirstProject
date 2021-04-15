@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.41</version>
+            <version>1.2.69</version>
         </dependency>
 
         <!--map转换json-->
@@ -215,6 +215,13 @@
             <groupId>com.ailk.ecs.open</groupId>
             <artifactId>openesb-client</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <!-- 工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.1.2</version>
         </dependency>
 
     </dependencies>

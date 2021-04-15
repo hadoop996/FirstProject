@@ -59,7 +59,7 @@ public class SafetyProdDemo {
          * 业务参数
          */
         JSONObject busi = new JSONObject();
-        busi.put("user_id", "15637129581");
+        busi.put("user_id", "17610623205");
         busi.put("display", "uop:oauth2.0:token");
         busi.put("redirect_uri", "uop:oauth2.0:token");
         busi.put("timestamp","1616063700671");

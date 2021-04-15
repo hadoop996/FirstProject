@@ -3,7 +3,8 @@
  * @Date: 2019年07月23日
  * @Copyright: 北京天源迪科信息技术有限公司，禁止外泄以及用于其他的商业目的 Inc. All rights reserved.
  */
-package com.example.config;
+package com.example.constans;
+
 
 /**
  * @author liuzhenhua
@@ -13,14 +14,11 @@ public enum BusinessCode {
 
 
     SUCCESS("0000", "操作成功"),
-    SUCCESS_OTHER("1010", "没有此类商家，为您推荐更多商家"),
     FAILD("9999", "系统异常"),
-    THREE_HUNDREDAND_ONE("301", "资源(网页等)被永久转移到其它URL"),
-    FOUR_HUNDRED("400", "请求的资源(网页等)不存在"),
-    FIVE_HUNDRED("500", "内部服务器错误"),
-    VLAUE_ERROR("8888", "前台传值有误"),
-    NOT_VALUE("9090", "暂无数据");
-
+    OPER_ADD_USER_FALID("USER_0000", "新增用户失败！"),
+    OPER_QUERY_USER_FALID("USER_0001", "查询用户信息失败！"),
+    OPER_QUERY_EVALUATE_FALID("USER_0002", "查询评价信息失败！"),
+    QUERY_VALI_FALID("1000", "查询参数校验失败");
 
     private String code;
     private String message;
@@ -31,10 +29,10 @@ public enum BusinessCode {
     }
 
     public String getCode() {
-        return code;
+        return this.code;
     }
 
     public String getMessage() {
-        return message;
+        return this.message;
     }
 }

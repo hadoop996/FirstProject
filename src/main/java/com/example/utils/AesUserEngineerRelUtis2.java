@@ -1,7 +1,6 @@
 package com.example.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Maps;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -17,7 +16,6 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
-import java.util.Map;
 
 
 /**
@@ -27,7 +25,7 @@ import java.util.Map;
  * 
  * @author 石龙义
  */
-public class AesUserEngineerRelUtis {
+public class AesUserEngineerRelUtis2 {
 	private static final String AES = "AES";
 	private static final String AES_CBC = "AES/CBC/PKCS5Padding";
 	private static final int DEFAULT_AES_KEYSIZE = 128;
@@ -255,18 +253,16 @@ public class AesUserEngineerRelUtis {
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		//加密
 		JSONObject map = new JSONObject();
-		map.put("ak","admin");
-		map.put("sk","admin");
-		map.put("ts",System.currentTimeMillis());
+		map.put("phone","18647215913");
 //		map.put("developId","91-0910");
 		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(map.toString().getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 
 		System.out.println(enStr);
 //		// 解密
 //
-		String a = "d1e98bd03907255505fcb0edaf55a8f00ab1f8abc8cac8d7665e0f36f73dbd2d";
+		String a = "5aa74abad9cf258926770200b5f9a9083fb990e23be1b845a689907283987152";
 //		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
-//		System.out.println("de==="+deStr);
+////		System.out.println("de==="+deStr);
 
 		String json = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a),
 				AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));

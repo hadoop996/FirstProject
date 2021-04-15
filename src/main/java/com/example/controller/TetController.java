@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.example.service.TetService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class TetController {
      */
     @PostMapping(value = "test")
     public void qryAdminSearProvince() throws Exception {
+        log.error("123");
+        log.info("123");
+        boolean safeMode = ParserConfig.getGlobalInstance().isSafeMode();
+        System.out.println(safeMode);
         tetService.getSql();
     }
 }

@@ -5,19 +5,16 @@ import com.ailk.ecs.ssp.eop.api.EopReq;
 import com.ailk.ecs.ssp.eop.api.EopRsp;
 import com.example.domain.BoardInformationBO;
 import com.example.domain.EopEntityBO;
-import com.example.domain.QueryUserDetailByNumRspBO;
 import com.example.utils.DateUtil;
 import com.example.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ObjectUtils;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author 郝少杰

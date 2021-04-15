@@ -4,14 +4,6 @@ import com.ailk.ecs.open.esbclient.OpenEsbClient;
 import com.ailk.ecs.open.esbclient.bean.EcAopResult;
 import com.ailk.ecs.open.esbclient.bean.SysParamBean;
 import com.ailk.ecs.open.esbclient.sign.SignAlgorithmType;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.codec.binary.Base64;
-
-import javax.crypto.Cipher;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

@@ -14,6 +14,8 @@ import java.io.IOException;
 public class TestFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        log.error("123");
+        log.info("123");
         log.info("初始化拦截器");
     }
 

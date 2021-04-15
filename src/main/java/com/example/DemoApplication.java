@@ -1,5 +1,6 @@
 package com.example;
 
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.example.config.UserBroadcastThread;
 import com.example.filter.TestFilter;
 import org.mybatis.spring.annotation.MapperScan;
@@ -27,6 +28,7 @@ public class DemoApplication {
     private UserBroadcastThread userBroadcastThread;
 
     public static void main(String[] args) {
+        ParserConfig.getGlobalInstance().setSafeMode(true);
         SpringApplication.run(DemoApplication.class, args);
     }
 
