@@ -264,7 +264,7 @@ public class AesUserEngineerRelUtis {
 		System.out.println(enStr);
 //		// 解密
 //
-		String a = "d1e98bd03907255505fcb0edaf55a8f00ab1f8abc8cac8d7665e0f36f73dbd2d";
+		String a = "95d992ea0c6ce54096b3d9e65ad97b9fe8345fb256e23e05188aae606117824d";
 //		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
 //		System.out.println("de==="+deStr);
 

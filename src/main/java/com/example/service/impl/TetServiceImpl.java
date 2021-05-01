@@ -46,19 +46,20 @@ public class TetServiceImpl implements TetService{
         List<String> engineerList = new ArrayList<>();
         List<String> dangyuan = new ArrayList<>();
 //        List<String> hebeiList = getHebeiList();
-        Map<String, String> beijing = beijing("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\辽宁.csv", 1);
+        String a = "https://bbdigital.10010.com/udbh/engineer/view/0?orderId=eyJvcmRlcklkIjoiMjAyMTAzMTYyMjAxNTc3MjkwNzEifQ==&type=2";
+        Map<String, String> beijing = beijing("D:\\C盘备份\\绑定关系整理\\新绑定关系\\新湖南\\湖南.csv", 1);
 //        int i = 1;
-//        for (String str:hebeiList){
-         exportBeijing("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\20210330_kd.csv",1,
+        for (int i = 1;i<=3;i++){
+         exportBeijing("D:\\C盘备份\\绑定关系整理\\新绑定关系\\新湖南\\湖南"+i+".csv",1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan);
 //         i++;
-//        }
-        engineerNul("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\失败工程师不存在.txt",errEngineer);
+        }
+        engineerNul("D:\\C盘备份\\绑定关系整理\\新绑定关系\\新湖南\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\C盘备份\\绑定关系整理\\新绑定关系\\新湖南\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\C盘备份\\绑定关系整理\\新辽宁\\辽宁绑定关系\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\C盘备份\\绑定关系整理\\新绑定关系\\新湖南\\失败工程师手机号.txt",engineerPhone);
 
         log.error("总数据量{}",total);
         log.error("工程师总量{}",listEngineer.size());
@@ -123,7 +124,8 @@ public class TetServiceImpl implements TetService{
                               List<String> dangyuan) throws Exception {
 //        Map<String, String> map = getMap();
         FileInputStream fins = new FileInputStream(inputFile);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;
@@ -133,17 +135,17 @@ public class TetServiceImpl implements TetService{
         int y = 0;
         while ((line = reader.readLine()) != null) {
             String[] fields = line.split("\\,");
-            if (fields == null || fields.length != 7) {
+            if (fields == null || fields.length != 6) {
                 failList.add(line + "|数据为空");
                 continue;
             }
 
-            if (fields[4].replace("\"", "").equals("")) {
+            if (fields[2].equals("")) {
                 failList.add(line + "|手机号为空");
                 engineerPhoneNull++;
                 continue;
             }
-            if (fields[6].replace("\"", "").equals("")) {
+            if (fields[4].equals("")) {
                 failList.add(line + "|宽带编码为空");
                 engineerPhoneNull++;
                 continue;
@@ -153,32 +155,32 @@ public class TetServiceImpl implements TetService{
 //                length++;
 //                continue;
 //            }
-//            fields[6].replace("\"", "") = fields[6].replace("\"", "").substring(0, fields[6].replace("\"", "").length() - 1);
-            if (fields[6].replace("\"", "").equals("")) {
+//            fields[4] = fields[4].substring(0, fields[4].length() - 1);
+            if (fields[4].equals("")) {
                 failList.add(line + "|宽带账号为空");
                 broadbandPhoneNull++;
                 continue;
             }
 
-            if (listCount.contains(fields[6].replace("\"", ""))) {
+            if (listCount.contains(fields[4])) {
                 failList.add(line + "|宽带账号重复");
-                checkBroadBandList.add(new BroadBandInfo(fields[4].replace("\"", ""), fields[6].replace("\"", ""), "宽带账号重复", "51"));
+                checkBroadBandList.add(new BroadBandInfo(fields[2], fields[4], "宽带账号重复", "51"));
                 broadband++;
                 continue;
             }
-//            if (!StringUtils.isBlank(map.get(fields[6].replace("\"", "")))){
+//            if (!StringUtils.isBlank(map.get(fields[4]))){
 //                continue;
 //            }
-            if (!engineerPhone.contains(fields[4].replace("\"", ""))) {
-                engineerPhone.add(fields[4].replace("\"", ""));
+            if (!engineerPhone.contains(fields[2])) {
+                engineerPhone.add(fields[2]);
             }
-            listEngineer.add(fields[4].replace("\"", ""));
-            listCount.add(fields[6].replace("\"", ""));
-            if (!StringUtils.isBlank(beijing.get(fields[4].replace("\"", "")))) {
-                userEngineerPOS.add(new UserEngineerPO(fields[4].replace("\"", ""), fields[6].replace("\"", "")));
+            listEngineer.add(fields[2]);
+            listCount.add(fields[4]);
+            if (!StringUtils.isBlank(beijing.get(fields[2]))) {
+                userEngineerPOS.add(new UserEngineerPO(fields[2], fields[4]));
             } else {
-                if (!errEngineer.contains(fields[4].replace("\"", ""))) {
-                    errEngineer.add(fields[4].replace("\"", ""));
+                if (!errEngineer.contains(fields[2])) {
+                    errEngineer.add(fields[2]);
                 }
                 failList.add(line+ "|工程师不存在");
                 engineerNull++;

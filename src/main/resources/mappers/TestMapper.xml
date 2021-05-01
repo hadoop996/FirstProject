@@ -61,7 +61,7 @@
 	</insert>
 
 	<insert id="insertUserList2">
-		insert into t_new_liaoning(engineer_phone,brandbond_code) values
+		insert into t_new_hunan(engineer_phone,brandbond_code) values
 		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
 			(#{pa.engineerPhone},#{pa.brandbondCode})
 		</foreach>
