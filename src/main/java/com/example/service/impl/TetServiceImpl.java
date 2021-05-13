@@ -4,6 +4,7 @@ import com.example.domain.BroadBandInfo;
 import com.example.domain.UserEngineerPO;
 import com.example.mapper.TestMapper;
 import com.example.service.TetService;
+import com.example.xml.pojo.Channl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class TetServiceImpl implements TetService{
     int engineerNull = 0;
     int length = 0;
 
-    @Override
+//    @Override
 
     public void getSql() throws Exception {
         Set<String> listCount = new HashSet<>();
@@ -218,6 +219,14 @@ public class TetServiceImpl implements TetService{
     @Override
     public void asyn1() throws InterruptedException {
         Thread.sleep(100000);
+    }
+
+    @Override
+    public void channl() throws Exception {
+        Channl Channl = new Channl();
+        Channl.setAge("12312");
+        Channl.setName("341231");
+        log.info(Channl.toString());
     }
 
     public Map<String,String> beijing(String inputFile, int skipRecords) throws Exception {

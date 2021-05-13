@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persons>
+    <person>
+        <name>至尊宝</name>
+        <age>99</age>
+    </person>
+    <person>
+        <name>紫霞仙子</name>
+        <age>89</age>
+    </person>
+
+    <person>
+        <name>白晶晶</name>
+        <age>79</age>
+    </person>
+</persons>

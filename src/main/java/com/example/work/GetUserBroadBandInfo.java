@@ -46,10 +46,10 @@ public class GetUserBroadBandInfo {
         queryUserDetailByNum();
     }
     public static void queryUserDetailByNum() {
-        String userBroadcast = "02424861370";
-        String province = "91";
-        String eparchy = "910";
-        String fourArea = "024";
+        String userBroadcast = "01018521879";
+        String province = "11";
+        String eparchy = "110";
+        String fourArea = "010";
         String queryType = "02";
         log.info("=====================================参数没有问题！");
         StringBuffer engineerProvinceCode = new StringBuffer();
