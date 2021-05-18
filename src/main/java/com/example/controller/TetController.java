@@ -33,11 +33,11 @@ public class TetController {
      * @return
      */
     @PostMapping(value = "test")
-    public void qryAdminSearProvince(@Valid @RequestBody Channl Channl) throws Exception {
+    public void qryAdminSearProvince() throws Exception {
 //        log.error("123");
 //        log.info("123");
 //        boolean safeMode = ParserConfig.getGlobalInstance().isSafeMode();
 //        System.out.println(safeMode);
-        tetService.channl();
+        tetService.getSql();
     }
 }

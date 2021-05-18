@@ -4,9 +4,12 @@ import com.example.domain.BroadBandInfo;
 import com.example.domain.UserEngineerPO;
 import com.example.mapper.TestMapper;
 import com.example.service.TetService;
+import com.example.utils.FileViewer;
 import com.example.xml.pojo.Channl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.ResultContext;
+import org.apache.ibatis.session.ResultHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +38,7 @@ public class TetServiceImpl implements TetService{
     int engineerNull = 0;
     int length = 0;
 
-//    @Override
-
+    @Override
     public void getSql() throws Exception {
         Set<String> listCount = new HashSet<>();
         Set<String> listEngineer = new HashSet<>();
@@ -46,21 +48,21 @@ public class TetServiceImpl implements TetService{
         List<String> failList = new ArrayList<String>();
         List<String> engineerList = new ArrayList<>();
         List<String> dangyuan = new ArrayList<>();
-//        List<String> hebeiList = getHebeiList();
-        String a = "https://bbdigital.10010.com/udbh/engineer/view/0?orderId=eyJvcmRlcklkIjoiMjAyMTAzMTYyMjAxNTc3MjkwNzEifQ==&type=2";
-        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新新辽宁\\辽宁宽带数据全量明细\\辽宁.csv", 1);
+        Map<String,String> userBroadBandList = getUserBroadBand();
+        List<String> hebeiList = getHebeiList();
+        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\河北.csv", 1);
 //        int i = 1;
-//        for (int i = 1;i<=3;i++){
-         exportBeijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新新辽宁\\辽宁宽带数据全量明细\\辽宁宽带数据全量明细.csv",1,
+        for (int i = 0;i<hebeiList.size();i++){
+            exportBeijing(hebeiList.get(i),1,
                  listCount,beijing,listEngineer,
-                 engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan);
+                 engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan,userBroadBandList);
 //         i++;
-//        }
-        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新新辽宁\\辽宁宽带数据全量明细\\失败工程师不存在.txt",errEngineer);
+        }
+        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新新辽宁\\辽宁宽带数据全量明细\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新新辽宁\\辽宁宽带数据全量明细\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\失败工程师手机号.txt",engineerPhone);
 
         log.info("总数据量{}",total);
         log.info("工程师总量{}",listEngineer.size());
@@ -73,21 +75,7 @@ public class TetServiceImpl implements TetService{
     }
 
     private List<String> getHebeiList() {
-        List<String> list = new ArrayList<>();
-        list.add("保定1");
-        list.add("保定2");
-        list.add("沧州");
-        list.add("承德");
-        list.add("邯郸");
-        list.add("衡水");
-        list.add("廊坊");
-        list.add("秦皇岛");
-        list.add("石家庄1");
-        list.add("石家庄2");
-        list.add("唐山");
-        list.add("邢台");
-        list.add("张家口");
-        return list;
+        return FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\csv", "csv", false);
     }
 
     public void export2SQL(String inputFile, int skipRecords) throws Exception {
@@ -122,11 +110,11 @@ public class TetServiceImpl implements TetService{
     public void exportBeijing(String inputFile, int skipRecords,Set<String> listCount,Map<String, String> beijing,
                               Set<String> listEngineer,List<String> engineerNullList,Set<String> errEngineer,
                               List<String> failList,Set<String> engineerPhone,List<String> engineerList,
-                              List<String> dangyuan) throws Exception {
+                              List<String> dangyuan,Map<String,String> userBroadBandList) throws Exception {
 //        Map<String, String> map = getMap();
         FileInputStream fins = new FileInputStream(inputFile);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;
@@ -136,54 +124,51 @@ public class TetServiceImpl implements TetService{
         int y = 0;
         while ((line = reader.readLine()) != null) {
             String[] fields = line.split("\\,");
-            if (fields == null || fields.length != 10) {
-                failList.add(line + "|数据为空");
+            if (fields == null) {
+                failList.add(line + ",数据为空");
                 continue;
             }
-            
-            if (fields[8].replace("\"", "").equals("")) {
-                failList.add(line + "|手机号为空");
-                engineerPhoneNull++;
-                continue;
-            }
-            if (fields[3].replace("\"", "").equals("")) {
-                failList.add(line + "|宽带编码为空");
-                engineerPhoneNull++;
-                continue;
-            }
-//            if (fields.length!=2){
-//                failList.add(line+"\\|数据格式不正确");
-//                length++;
-//                continue;
-//            }
-//            fields[3].replace("\"", "") = fields[3].replace("\"", "").substring(0, fields[3].replace("\"", "").length() - 1);
-            if (fields[3].replace("\"", "").equals("")) {
-                failList.add(line + "|宽带账号为空");
-                broadbandPhoneNull++;
+            if (fields.length!=10){
+                failList.add(line+",数据格式不正确");
                 continue;
             }
 
-            if (listCount.contains(fields[3].replace("\"", ""))) {
-                failList.add(line + "|宽带账号重复");
-                checkBroadBandList.add(new BroadBandInfo(fields[8].replace("\"", ""), fields[3].replace("\"", ""), "宽带账号重复", "51"));
+            if (fields[4].equals("")) {
+                failList.add(line + ",手机号为空");
+                engineerPhoneNull++;
+                continue;
+            }
+            if (fields[7].equals("")) {
+                failList.add(line + ",宽带编码为空");
+                engineerPhoneNull++;
+                continue;
+            }
+
+            if (!StringUtils.isEmpty(userBroadBandList.get(fields[7]))){
+                continue;
+            }
+
+            if (listCount.contains(fields[7])) {
+                failList.add(line + ",宽带账号重复");
+                checkBroadBandList.add(new BroadBandInfo(fields[4], fields[7], "宽带账号重复", "51"));
                 broadband++;
                 continue;
             }
-//            if (!StringUtils.isBlank(map.get(fields[3].replace("\"", "")))){
+//            if (!StringUtils.isBlank(map.get(fields[7]))){
 //                continue;
 //            }
-            if (!engineerPhone.contains(fields[8].replace("\"", ""))) {
-                engineerPhone.add(fields[8].replace("\"", ""));
+            if (!engineerPhone.contains(fields[4])) {
+                engineerPhone.add(fields[4]);
             }
-            listEngineer.add(fields[8].replace("\"", ""));
-            listCount.add(fields[3].replace("\"", ""));
-            if (!StringUtils.isBlank(beijing.get(fields[8].replace("\"", "")))) {
-                userEngineerPOS.add(new UserEngineerPO(fields[8].replace("\"", ""), fields[3].replace("\"", "").replace("\'", "")));
+            listEngineer.add(fields[4]);
+            listCount.add(fields[7]);
+            if (!StringUtils.isBlank(beijing.get(fields[4]))) {
+                userEngineerPOS.add(new UserEngineerPO(fields[4], fields[7].replace("\'", "")));
             } else {
-                if (!errEngineer.contains(fields[8].replace("\"", ""))) {
-                    errEngineer.add(fields[8].replace("\"", ""));
+                if (!errEngineer.contains(fields[4])) {
+                    errEngineer.add(fields[4]);
                 }
-                failList.add(line+ "|工程师不存在");
+                failList.add(line+ ",工程师不存在");
                 engineerNull++;
                 continue;
             }
@@ -220,14 +205,14 @@ public class TetServiceImpl implements TetService{
     public void asyn1() throws InterruptedException {
         Thread.sleep(100000);
     }
-
-    @Override
-    public void channl() throws Exception {
-        Channl Channl = new Channl();
-        Channl.setAge("12312");
-        Channl.setName("341231");
-        log.info(Channl.toString());
-    }
+//
+//    @Override
+//    public void channl() throws Exception {
+//        Channl Channl = new Channl();
+//        Channl.setAge("12312");
+//        Channl.setName("341231");
+//        log.info(Channl.toString());
+//    }
 
     public Map<String,String> beijing(String inputFile, int skipRecords) throws Exception {
         Map<String,String> map = new HashMap<>();
@@ -314,5 +299,20 @@ public class TetServiceImpl implements TetService{
         }else {
             return null;
         }
+    }
+
+    public Map<String,String> getUserBroadBand(){
+        List<String> userList = new ArrayList<>();
+        Map<String,String> map = new HashMap();
+        testDao.getUserBroadBand(new ResultHandler<String>() {
+            @Override
+            public void handleResult(ResultContext<? extends String> resultContext) {
+                userList.add(resultContext.getResultObject());
+            }
+        });
+        for (String s : userList) {
+            map.put(s,"1");
+        }
+        return map;
     }
 }

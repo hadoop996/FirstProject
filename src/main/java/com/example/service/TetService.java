@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface TetService {
-//    void getSql() throws Exception;
+    void getSql() throws Exception;
 
     @Async
     void asyn1() throws InterruptedException;
 
-    void channl() throws Exception;
+//    void channl() throws Exception;
 
 }

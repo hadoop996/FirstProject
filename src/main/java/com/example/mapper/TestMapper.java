@@ -5,6 +5,7 @@ import com.example.domain.PersonPo;
 import com.example.domain.UserEngineerPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.ResultHandler;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -37,5 +38,7 @@ public interface TestMapper {
     void insertUserList2(@Param("userEngineerPOS") List<UserEngineerPO> userEngineerPOS);
 
     List<String> getEngineerMap();
+
+    void getUserBroadBand(ResultHandler<String> handler);
 }
 

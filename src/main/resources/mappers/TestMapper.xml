@@ -61,10 +61,15 @@
 	</insert>
 
 	<insert id="insertUserList2">
-		insert into t_liaoning0507bak(engineer_phone,brandbond_code) values
+		insert into t_hebei(engineer_phone,brandbond_code) values
 		<foreach collection="userEngineerPOS" item='pa' index="index" separator=','>
 			(#{pa.engineerPhone},#{pa.brandbondCode})
 		</foreach>
 
 	</insert>
+
+	<select id="getUserBroadBand" resultSetType="FORWARD_ONLY"  resultType="java.lang.String" fetchSize="-2147483648">
+		select brandbond_code,1
+		from t_hubei_user
+	</select>
 </mapper>

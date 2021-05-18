@@ -23,6 +23,7 @@ import java.util.Map;
 @Slf4j
 public class GetUserBroadBandInfo {
     // 服务端URL地址
+    //http://132.38.1.82:7207/ssp-gateway-release
     private static String url = "http://127.0.0.1:7209/ssp-gateway-release";
     //渠道接入唯一标识码
     private static String appcode = "152000001";
@@ -46,7 +47,7 @@ public class GetUserBroadBandInfo {
         queryUserDetailByNum();
     }
     public static void queryUserDetailByNum() {
-        String userBroadcast = "01018521879";
+        String userBroadcast = "01004719448";
         String province = "11";
         String eparchy = "110";
         String fourArea = "010";
@@ -103,6 +104,7 @@ public class GetUserBroadBandInfo {
 
         try {
             EopRsp eopRsp = client.execute(eopReq);
+            System.out.println("失败："+eopRsp.getRspdesc());
             String rspResults = String.valueOf(eopRsp.getResult());
             log.info("===================>调用接口返回信息：{}", rspResults);
             if (StringUtils.isEmpty(rspResults)) {
