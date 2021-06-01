@@ -8,22 +8,17 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 
 import com.monitorjbl.xlsx.StreamingReader;
 
 @Slf4j
 public class CsvUtil {
     public static void main(String[] args) {
-        List<String> xlsx = FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北", "xlsx", false);
+        List<String> xlsx = FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新湖北\\湖北绑定关系-20210521", "xlsx", false);
         for (String s : xlsx) {
             csvs(s,s.replace("xlsx","csv"));
             log.info("{}转csv成功",s);
-            break;
         }
         log.info("excel转csv全部结束");
     }
@@ -39,10 +34,18 @@ public class CsvUtil {
             //读取文件信息
             Sheet sheetAt = wb.getSheetAt(0);
             for (Row row : sheetAt) {
+                int i = 1;
                 for (Cell cell : row) {
-                    if(cell.getCellTypeEnum()==CellType.STRING){
-                        bw.write(","+cell.getStringCellValue());
+                    if (i==1){
+                        if(cell.getCellTypeEnum()== CellType.STRING){
+                            bw.write(cell.getStringCellValue());
+                        }
+                    }else {
+                        if(cell.getCellTypeEnum()== CellType.STRING){
+                            bw.write(","+cell.getStringCellValue());
+                        }
                     }
+
                     if(cell.getCellTypeEnum()==CellType.NUMERIC){
                         bw.write(","+cell.getNumericCellValue());
                     }

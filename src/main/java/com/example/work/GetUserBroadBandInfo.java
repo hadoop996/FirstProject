@@ -103,7 +103,10 @@ public class GetUserBroadBandInfo {
         log.info("===================>业务参数信息：{},busi{}", eopReq.getParams(), bizMap.toString());
 
         try {
+            long l = System.currentTimeMillis();
             EopRsp eopRsp = client.execute(eopReq);
+            long l1 = System.currentTimeMillis();
+            System.out.println(l=l1);
             System.out.println("失败："+eopRsp.getRspdesc());
             String rspResults = String.valueOf(eopRsp.getResult());
             log.info("===================>调用接口返回信息：{}", rspResults);

@@ -4,6 +4,7 @@ import com.ailk.ecs.open.esbclient.OpenEsbClient;
 import com.ailk.ecs.open.esbclient.bean.EcAopResult;
 import com.ailk.ecs.open.esbclient.bean.SysParamBean;
 import com.ailk.ecs.open.esbclient.sign.SignAlgorithmType;
+import com.ailk.ecs.ssp.eop.api.EopRsp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.domain.BroadbandBO;
@@ -59,7 +60,7 @@ public class SafetyProdDemo {
          * 业务参数
          */
         JSONObject busi = new JSONObject();
-        busi.put("user_id", "15611072825");
+        busi.put("user_id", "17610623205");
         busi.put("display", "uop:oauth2.0:token");
         busi.put("redirect_uri", "uop:oauth2.0:token");
         busi.put("timestamp","1616063700671");
@@ -67,7 +68,10 @@ public class SafetyProdDemo {
         /**
          * 调用接口
          */
+        long l = System.currentTimeMillis();
         EcAopResult result = client.call(sysParamBean,busi);
+        long l1 = System.currentTimeMillis();
+        System.out.println(l1-l);
         /**
          * 接口返回
          */

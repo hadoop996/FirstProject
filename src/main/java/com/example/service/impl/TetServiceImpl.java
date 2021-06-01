@@ -50,19 +50,21 @@ public class TetServiceImpl implements TetService{
         List<String> dangyuan = new ArrayList<>();
         Map<String,String> userBroadBandList = getUserBroadBand();
         List<String> hebeiList = getHebeiList();
-        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\河北.csv", 1);
-//        int i = 1;
-        for (int i = 0;i<hebeiList.size();i++){
-            exportBeijing(hebeiList.get(i),1,
+        List<String> shandong = new ArrayList<>();
+        shandong.add("山东济南1.csv");
+        shandong.add("山东济南2.csv");
+        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\济南.csv", 1);
+        for (int i = 0;i<shandong.size();i++){
+        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\"+shandong.get(i);
+            exportBeijing(fileName,1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan,userBroadBandList);
-//         i++;
         }
-        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\失败工程师不存在.txt",errEngineer);
+        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\失败工程师手机号.txt",engineerPhone);
 
         log.info("总数据量{}",total);
         log.info("工程师总量{}",listEngineer.size());
@@ -75,7 +77,7 @@ public class TetServiceImpl implements TetService{
     }
 
     private List<String> getHebeiList() {
-        return FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新河北\\河北\\csv", "csv", false);
+        return FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新湖北\\湖北绑定关系-20210521\\0521\\csv", "csv", false);
     }
 
     public void export2SQL(String inputFile, int skipRecords) throws Exception {
@@ -112,6 +114,7 @@ public class TetServiceImpl implements TetService{
                               List<String> failList,Set<String> engineerPhone,List<String> engineerList,
                               List<String> dangyuan,Map<String,String> userBroadBandList) throws Exception {
 //        Map<String, String> map = getMap();
+        int i = 1;
         FileInputStream fins = new FileInputStream(inputFile);
 //        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
         BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
@@ -124,61 +127,66 @@ public class TetServiceImpl implements TetService{
         int y = 0;
         while ((line = reader.readLine()) != null) {
             String[] fields = line.split("\\,");
+           
             if (fields == null) {
                 failList.add(line + ",数据为空");
                 continue;
             }
-            if (fields.length!=10){
+            if (fields.length<5){
                 failList.add(line+",数据格式不正确");
                 continue;
             }
 
-            if (fields[4].equals("")) {
+            String engineerPhoneExcel = fields[2].replace("\"", "");
+            String userBroadBandExcel = fields[4].replace("\"", "");
+
+            if (StringUtils.isEmpty(engineerPhoneExcel)) {
                 failList.add(line + ",手机号为空");
                 engineerPhoneNull++;
                 continue;
             }
-            if (fields[7].equals("")) {
+            if (userBroadBandExcel.equals("")) {
                 failList.add(line + ",宽带编码为空");
                 engineerPhoneNull++;
                 continue;
             }
 
-            if (!StringUtils.isEmpty(userBroadBandList.get(fields[7]))){
-                continue;
-            }
+//            if (!StringUtils.isEmpty(userBroadBandList.get(userBroadBandExcel))){
+//                continue;
+//            }
 
-            if (listCount.contains(fields[7])) {
+            if (listCount.contains(userBroadBandExcel)) {
                 failList.add(line + ",宽带账号重复");
-                checkBroadBandList.add(new BroadBandInfo(fields[4], fields[7], "宽带账号重复", "51"));
+                checkBroadBandList.add(new BroadBandInfo(engineerPhoneExcel, userBroadBandExcel, "宽带账号重复", "51"));
                 broadband++;
                 continue;
             }
-//            if (!StringUtils.isBlank(map.get(fields[7]))){
+//            if (!StringUtils.isBlank(map.get(userBroadBandExcel))){
 //                continue;
 //            }
-            if (!engineerPhone.contains(fields[4])) {
-                engineerPhone.add(fields[4]);
+            if (!engineerPhone.contains(engineerPhoneExcel)) {
+                engineerPhone.add(engineerPhoneExcel);
             }
-            listEngineer.add(fields[4]);
-            listCount.add(fields[7]);
-            if (!StringUtils.isBlank(beijing.get(fields[4]))) {
-                userEngineerPOS.add(new UserEngineerPO(fields[4], fields[7].replace("\'", "")));
+            listEngineer.add(engineerPhoneExcel);
+            listCount.add(userBroadBandExcel);
+            if (!StringUtils.isBlank(beijing.get(engineerPhoneExcel))) {
+                userEngineerPOS.add(new UserEngineerPO(engineerPhoneExcel, userBroadBandExcel.replace("\'", "")));
             } else {
-                if (!errEngineer.contains(fields[4])) {
-                    errEngineer.add(fields[4]);
+                if (!errEngineer.contains(engineerPhoneExcel)) {
+                    errEngineer.add(engineerPhoneExcel);
                 }
                 failList.add(line+ ",工程师不存在");
                 engineerNull++;
                 continue;
             }
             if (userEngineerPOS.size() == 10000) {
-//                if (i <7) {
+//                if (i <430) {
 //                    testDao.insertUserList(userEngineerPOS);
 //                    total = total + userEngineerPOS.size();
 //                    userEngineerPOS = new ArrayList<>(10000);
 //                    log.info("第{}次执行，总数据量{}", size, total);
 //                    size++;
+//                    i++;
 //                } else {
                     testDao.insertUserList2(userEngineerPOS);
                     total = total + userEngineerPOS.size();

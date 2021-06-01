@@ -253,18 +253,18 @@ public class AesUserEngineerRelUtis2 {
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		//加密
 		JSONObject map = new JSONObject();
-		map.put("phone","18595013602");
+		map.put("phone","15653102321");
 //		map.put("developId","91-0910");
 		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(map.toString().getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 
 		System.out.println(enStr);
 //		// 解密
 //
-		String a = "5aa74abad9cf258926770200b5f9a9083fb990e23be1b845a689907283987152";
-//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
+//		String a = "5aa74abad9cf258926770200b5f9a9083fb990e23be1b845a689907283987152";
+//		String deStr = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a), AesUserEngineerRelUtil.he	xDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
 ////		System.out.println("de==="+deStr);
 
-		String json = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(a),
+		String json = AesUserEngineerRelUtil.aesDecrypt(AesUserEngineerRelUtil.hexDecode(enStr),
 				AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV));
 		System.out.println(json);
 	}
