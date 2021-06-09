@@ -51,20 +51,20 @@ public class TetServiceImpl implements TetService{
         Map<String,String> userBroadBandList = getUserBroadBand();
         List<String> hebeiList = getHebeiList();
         List<String> shandong = new ArrayList<>();
-        shandong.add("山东济南1.csv");
-        shandong.add("山东济南2.csv");
-        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\济南.csv", 1);
-        for (int i = 0;i<shandong.size();i++){
-        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\"+shandong.get(i);
+        shandong.add("202106-01.csv");
+        shandong.add("202106-02.csv");
+        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\贵州.csv", 1);
+//        for (int i = 0;i<shandong.size();i++){
+        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\智家工程师绑定关系名单.csv";
             exportBeijing(fileName,1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan,userBroadBandList);
-        }
-        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\失败工程师不存在.txt",errEngineer);
+//        }
+        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新山东济南\\山东济南俩sheet\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\失败工程师手机号.txt",engineerPhone);
 
         log.info("总数据量{}",total);
         log.info("工程师总量{}",listEngineer.size());

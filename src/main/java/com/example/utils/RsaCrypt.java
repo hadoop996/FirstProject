@@ -92,9 +92,9 @@ public class RsaCrypt {
   
      *
      */
-    public static String decrypt( String content) throws Exception {
+    public static String decrypt(String content) throws Exception {
 
-        RSAPrivateKey rsaPrivateKey= KeyHelper.getRSAPrivateKey(PRIVATE_KEY);
+        RSAPrivateKey rsaPrivateKey= KeyHelper.getRSAPrivateKey(PRIVATE_KEY1);
             // 使用默认RSA
             Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
             cipher.init(Cipher.DECRYPT_MODE, rsaPrivateKey);
@@ -170,6 +170,14 @@ public class RsaCrypt {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         keyPairGen.initialize(1024);
         return keyPairGen.generateKeyPair();
+    }
+
+    public static void main(String[] args) throws Exception {
+        String encrypt = "DWt+Bu2ODeEgikhdL5/sYaJgQAowmJUedngCHemkZoyZiK3qx+lnzZyjCTqihTt/Hvb0HWKwwQ+MGQ4rMTsvUeel90XGWasFvp/w0LsKvKIJcC+zL/hPcYxcZ0HsxF5gHiUO8jWhA94khZ3ihgqUuA+3rqfo95PcQ7ISi9YJNis=";
+
+        //解密
+        String decrypt = decrypt(encrypt);
+        System.out.println(decrypt);
     }
 
 }

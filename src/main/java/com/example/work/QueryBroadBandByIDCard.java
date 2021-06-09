@@ -34,13 +34,13 @@ public class QueryBroadBandByIDCard {
         /**
          * 初始化客户端
          */
-        String url = "http://open.10010.com/oppf";
-//        String url = "http://ecstest0517.10010.com/oppf";
+//        String url = "http://open.10010.com/oppf";
+        String url = "http://ecstest0517.10010.com/oppf";
         //创建应用时选择的签名加密方式
         SignAlgorithmType type = SignAlgorithmType.HmacSHA256;
         //创建应用后应用基本信息中的密钥
-//        String signSecurty = "d89a800186440b8b778153ae697ae780";
-        String signSecurty = "71173e0b4f2dbdc23e9e6a7d54954839";
+        String signSecurty = "d89a800186440b8b778153ae697ae780";
+//        String signSecurty = "71173e0b4f2dbdc23e9e6a7d54954839";
 
         OpenEsbClient client = new OpenEsbClient(url,type,signSecurty);
         /**
@@ -62,7 +62,7 @@ public class QueryBroadBandByIDCard {
          * 业务参数
          */
         JSONObject busi = new JSONObject();
-        busi.put("cert_num", "230103198304225713");
+        busi.put("cert_num", "210124198710240634");
         busi.put("cert_type", "02");
         busi.put("province_code", "11");
         busi.put("city_code","110");
@@ -110,7 +110,7 @@ public class QueryBroadBandByIDCard {
         }
         for (CardBroadbandBO cardBroadbandBO : rspList) {
             String decrypt = RsaCrypt.decrypt(cardBroadbandBO.getInstalladdr());
-            log.error("用户{},装机地址:{}",cardBroadbandBO.getUsername(),decrypt);
+            log.error("用户{},装机地址:{},宽带:{}",cardBroadbandBO.getUsername(),decrypt,cardBroadbandBO.getBroadbandcode());
         }
 
         System.out.println("调用方流水号(BusiSerial)：" + (StringUtils.isBlank(result.getApptx()) ? sysParamBean.getBusiSerial() : result.getApptx()));
