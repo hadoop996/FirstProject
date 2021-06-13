@@ -4,6 +4,9 @@ import com.ailk.ecs.open.esbclient.OpenEsbClient;
 import com.ailk.ecs.open.esbclient.bean.EcAopResult;
 import com.ailk.ecs.open.esbclient.bean.SysParamBean;
 import com.ailk.ecs.open.esbclient.sign.SignAlgorithmType;
+import com.example.utils.SystemClock;
+import lombok.extern.slf4j.Slf4j;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -11,6 +14,7 @@ import java.util.*;
  * @author zhangxh
  * @since 2020-04-20.
  */
+@Slf4j
 public class MarketDoTaskDemo {
 
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -24,7 +28,7 @@ public class MarketDoTaskDemo {
         SignAlgorithmType type = SignAlgorithmType.HmacSHA256;
         //创建应用后应用基本信息中的密钥
         //String signSecurty = "037637f1fadda428b3fe6b30b2050ddc";
-        String signSecurty = "23A87CE53E347B682455FA56FA8141775B61B6A1AB693BAD20014DB4BA82A500";
+        String signSecurty = "d89a800186440b8b778153ae697ae780";
         OpenEsbClient client = new OpenEsbClient(url,type,signSecurty);
         /**
          * 系统参数
@@ -47,11 +51,14 @@ public class MarketDoTaskDemo {
         Map busi = new HashMap();
 
         busi.put("grant_type", "token");
-        busi.put("ticket", "aa1go2ag77644c3fb4313a6b99ed85e06126f987hmlu1vjl");
+        busi.put("ticket", "iojblfctc73b3d2a4b3317e2118c7213e979dfdbjor4eawc");
         /**
          * 调用接口
          */
+        long l = SystemClock.currentTimeMillis();
         EcAopResult result = client.call(sysParamBean,busi);
+        long l1 = SystemClock.currentTimeMillis();
+        log.info("耗时：{}",l1-l);
         /**
          * 接口返回
          */

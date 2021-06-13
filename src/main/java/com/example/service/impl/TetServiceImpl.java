@@ -53,18 +53,18 @@ public class TetServiceImpl implements TetService{
         List<String> shandong = new ArrayList<>();
         shandong.add("202106-01.csv");
         shandong.add("202106-02.csv");
-        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\贵州.csv", 1);
-//        for (int i = 0;i<shandong.size();i++){
-        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\智家工程师绑定关系名单.csv";
+        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\烟台.csv", 1);
+//        for (int i = 1;i<9;i++){
+        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\烟台存量宽带与智A掌沃通手机对应关系表.csv";
             exportBeijing(fileName,1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan,userBroadBandList);
 //        }
-        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\失败工程师不存在.txt",errEngineer);
+        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\贵州0609\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\失败工程师手机号.txt",engineerPhone);
 
         log.info("总数据量{}",total);
         log.info("工程师总量{}",listEngineer.size());
@@ -116,8 +116,8 @@ public class TetServiceImpl implements TetService{
 //        Map<String, String> map = getMap();
         int i = 1;
         FileInputStream fins = new FileInputStream(inputFile);
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;

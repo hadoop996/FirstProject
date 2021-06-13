@@ -20,6 +20,7 @@ import java.util.Map;
  * @author 郝少杰
  * @date 2021/4/6 21:36
  */
+
 @Slf4j
 public class GetUserBroadBandInfo {
     // 服务端URL地址

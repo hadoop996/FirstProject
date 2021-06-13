@@ -6,9 +6,7 @@ import com.ailk.ecs.open.esbclient.bean.SysParamBean;
 import com.ailk.ecs.open.esbclient.sign.SignAlgorithmType;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.domain.BroadbandBO;
 import com.example.domain.CardBroadbandBO;
-import com.example.utils.AesUtils;
 import com.example.utils.JsonUtils;
 import com.example.utils.RsaCrypt;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,25 +20,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author 郝少杰
- * @date 2021/4/25 11:49
- */
 @Slf4j
-public class QueryBroadBandByIDCard {
+public class QueryBroadBandByIDCardProd {
+
+
     //测试密钥
     final static private String secret = "22Pbd7157KhLr8Ry";
     public static void main(String[] args) throws Exception {
         /**
          * 初始化客户端
          */
-//        String url = "http://open.10010.com/oppf";
-        String url = "http://ecstest0517.10010.com/oppf";
+        String url = "http://open.10010.com/oppf";
+//        String url = "http://ecstest0517.10010.com/oppf";
         //创建应用时选择的签名加密方式
         SignAlgorithmType type = SignAlgorithmType.HmacSHA256;
         //创建应用后应用基本信息中的密钥
-        String signSecurty = "d89a800186440b8b778153ae697ae780";
-//        String signSecurty = "71173e0b4f2dbdc23e9e6a7d54954839";
+//        String signSecurty = "d89a800186440b8b778153ae697ae780";
+        String signSecurty = "71173e0b4f2dbdc23e9e6a7d54954839";
 
         OpenEsbClient client = new OpenEsbClient(url,type,signSecurty);
         /**
@@ -62,10 +58,10 @@ public class QueryBroadBandByIDCard {
          * 业务参数
          */
         JSONObject busi = new JSONObject();
-        busi.put("cert_num", "140181199302130464");
+        busi.put("cert_num", "430321198804070755");
         busi.put("cert_type", "02");
-        busi.put("province_code", "11");
-        busi.put("city_code","110");
+        busi.put("province_code", "74");
+        busi.put("city_code","741");
         busi.put("display","native");
         busi.put("redirect_uri","uop:oauth2.0:token");
 //        busi.put("real_ip","10.3.31.181");
@@ -109,7 +105,7 @@ public class QueryBroadBandByIDCard {
             throw new ZTBusinessException("返回结果List为空");
         }
         for (CardBroadbandBO cardBroadbandBO : rspList) {
-            String decrypt = RsaCrypt.decrypt(cardBroadbandBO.getInstalladdr(),"0");
+            String decrypt = RsaCrypt.decrypt(cardBroadbandBO.getInstalladdr(),"1");
             log.error("用户{},装机地址:{},宽带:{}",cardBroadbandBO.getUsername(),decrypt,cardBroadbandBO.getBroadbandcode());
         }
 

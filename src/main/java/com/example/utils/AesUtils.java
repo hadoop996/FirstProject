@@ -135,15 +135,16 @@ public class AesUtils {
     }
 
     public static void main(String[] args) throws Exception {
-        //测试密钥
-        String secret = "D2XG78VG30yojwca";
+        //测试密钥 22Pbd7157KhLr8Ry 生产 WXwkV7j5LCEIMFV0
+        String secret = "22Pbd7157KhLr8Ry";
         //待加密内容
         String content = "{\"phoneNumber\": \"17611220705\"}";
         //加密
         String encrypt = encrypt(content,secret);
         System.out.println(encrypt);
+        String a = "ac3e467199b0f6a4e326f0a82aa81eba71f8ba06bc21e1fdb859fc6c8160df2d";
         //解密
-        String decrypt = decrypt(encrypt,secret);
+        String decrypt = decrypt(a,secret);
         System.out.println(decrypt);
     }
 }

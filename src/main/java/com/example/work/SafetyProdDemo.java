@@ -60,7 +60,7 @@ public class SafetyProdDemo {
          * 业务参数
          */
         JSONObject busi = new JSONObject();
-        busi.put("user_id", "18611397905");
+        busi.put("user_id", "15601233891");
         busi.put("display", "uop:oauth2.0:token");
         busi.put("redirect_uri", "uop:oauth2.0:token");
         busi.put("timestamp","1616063700671");
@@ -105,7 +105,7 @@ public class SafetyProdDemo {
         }
         for (BroadbandBO broadbandBO : rspList) {
             String decrypt = AesUtils.decrypt(broadbandBO.getInstalladdress(), secret);
-            log.error("用户{},装机地址:{}",broadbandBO.getCustname(),decrypt);
+            log.error("用户{},装机地址:{},宽带:{}",broadbandBO.getCustname(),decrypt,broadbandBO.getBroadbandcode());
         }
 
         System.out.println("调用方流水号(BusiSerial)：" + (StringUtils.isBlank(result.getApptx()) ? sysParamBean.getBusiSerial() : result.getApptx()));
