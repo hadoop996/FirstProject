@@ -26,6 +26,6 @@ public class TestFilter implements Filter {
 
     @Override
     public void destroy() {
-        log.info("销毁拦截器");
+        log.error("销毁拦截器");
     }
 }

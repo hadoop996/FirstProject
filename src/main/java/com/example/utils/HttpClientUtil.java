@@ -94,30 +94,7 @@ public class HttpClientUtil {
         return sendHttpPost(httpPost);
     }
 
-    /**
-     * 发送 post请求（带文件）
-     *
-     * @param httpUrl
-     *            地址
-     * @param maps
-     *            参数
-     * @param fileLists
-     *            附件
-     */
-//    public String sendHttpPost(String httpUrl, Map<String, String> maps, List<File> fileLists) {
-//        HttpPost httpPost = new HttpPost(httpUrl);
-//        MultipartEntityBuilder meBuilder = MultipartEntityBuilder.create();
-//        for (String key : maps.keySet()) {
-//            meBuilder.addPart(key, new StringBody(maps.get(key), ContentType.TEXT_PLAIN));
-//        }
-//        for (File file : fileLists) {
-//            FileBody fileBody = new FileBody(file);
-//            meBuilder.addPart("files", fileBody);
-//        }
-//        HttpEntity reqEntity = meBuilder.build();
-//        httpPost.setEntity(reqEntity);
-//        return sendHttpPost(httpPost);
-//    }
+
 
     /**
      * 发送Post请求

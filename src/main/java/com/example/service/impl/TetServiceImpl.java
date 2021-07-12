@@ -37,6 +37,7 @@ public class TetServiceImpl implements TetService{
     int broadbandPhoneNull = 0;
     int engineerNull = 0;
     int length = 0;
+    int i = 1;
 
     @Override
     public void getSql() throws Exception {
@@ -53,18 +54,18 @@ public class TetServiceImpl implements TetService{
         List<String> shandong = new ArrayList<>();
         shandong.add("202106-01.csv");
         shandong.add("202106-02.csv");
-        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\烟台.csv", 1);
-//        for (int i = 1;i<9;i++){
-        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\烟台存量宽带与智A掌沃通手机对应关系表.csv";
+        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\河北.csv", 1);
+        for (int i = 0;i<hebeiList.size();i++){
+        String fileName = hebeiList.get(i);
             exportBeijing(fileName,1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan,userBroadBandList);
-//        }
-        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\失败工程师不存在.txt",errEngineer);
+        }
+        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\山东0612\\烟台存量宽带与智A掌沃通手机对应关系表\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\失败工程师手机号.txt",engineerPhone);
 
         log.info("总数据量{}",total);
         log.info("工程师总量{}",listEngineer.size());
@@ -77,7 +78,7 @@ public class TetServiceImpl implements TetService{
     }
 
     private List<String> getHebeiList() {
-        return FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\新湖北\\湖北绑定关系-20210521\\0521\\csv", "csv", false);
+        return FileViewer.getListFiles("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv", "csv", false);
     }
 
     public void export2SQL(String inputFile, int skipRecords) throws Exception {
@@ -114,10 +115,9 @@ public class TetServiceImpl implements TetService{
                               List<String> failList,Set<String> engineerPhone,List<String> engineerList,
                               List<String> dangyuan,Map<String,String> userBroadBandList) throws Exception {
 //        Map<String, String> map = getMap();
-        int i = 1;
         FileInputStream fins = new FileInputStream(inputFile);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;
@@ -132,13 +132,13 @@ public class TetServiceImpl implements TetService{
                 failList.add(line + ",数据为空");
                 continue;
             }
-            if (fields.length<5){
+            if (fields.length<8){
                 failList.add(line+",数据格式不正确");
                 continue;
             }
 
-            String engineerPhoneExcel = fields[2].replace("\"", "");
-            String userBroadBandExcel = fields[4].replace("\"", "");
+            String engineerPhoneExcel = fields[4].replace("\"", "");
+            String userBroadBandExcel = fields[7].replace("\"", "");
 
             if (StringUtils.isEmpty(engineerPhoneExcel)) {
                 failList.add(line + ",手机号为空");
@@ -151,9 +151,11 @@ public class TetServiceImpl implements TetService{
                 continue;
             }
 
-//            if (!StringUtils.isEmpty(userBroadBandList.get(userBroadBandExcel))){
-//                continue;
-//            }
+            if (!StringUtils.isEmpty(userBroadBandList.get(userBroadBandExcel))){
+                failList.add(line + ",宽带编码重复");
+                engineerPhoneNull++;
+                continue;
+            }
 
             if (listCount.contains(userBroadBandExcel)) {
                 failList.add(line + ",宽带账号重复");
@@ -180,7 +182,7 @@ public class TetServiceImpl implements TetService{
                 continue;
             }
             if (userEngineerPOS.size() == 10000) {
-//                if (i <430) {
+//                if (i <350) {
 //                    testDao.insertUserList(userEngineerPOS);
 //                    total = total + userEngineerPOS.size();
 //                    userEngineerPOS = new ArrayList<>(10000);

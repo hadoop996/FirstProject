@@ -67,7 +67,10 @@ public class SafetyDemo {
         /**
          * 调用接口
          */
+        long l = System.currentTimeMillis();
         EcAopResult result = client.call(sysParamBean,busi);
+        long l1 = System.currentTimeMillis();
+        System.out.println("耗时："+(l1-l));
         /**
          * 接口返回
          */

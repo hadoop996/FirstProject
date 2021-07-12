@@ -60,7 +60,7 @@ public class SafetyProdDemo {
          * 业务参数
          */
         JSONObject busi = new JSONObject();
-        busi.put("user_id", "15601233891");
+        busi.put("user_id", "17526399019");
         busi.put("display", "uop:oauth2.0:token");
         busi.put("redirect_uri", "uop:oauth2.0:token");
         busi.put("timestamp","1616063700671");
@@ -71,7 +71,7 @@ public class SafetyProdDemo {
         long l = System.currentTimeMillis();
         EcAopResult result = client.call(sysParamBean,busi);
         long l1 = System.currentTimeMillis();
-        System.out.println(l1-l);
+        System.out.println("耗时："+(l1-l));
         /**
          * 接口返回
          */

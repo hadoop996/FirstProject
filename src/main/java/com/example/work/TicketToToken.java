@@ -39,7 +39,7 @@ public class TicketToToken {
         busiParam.put("app_code", appCode);
         busiParam.put("app_secret", appSercet);
         busiParam.put("grant_type", grantType);
-        busiParam.put("access_token", "exgctqhc9f6ce14d528decffdcb7fda0ad0517d6vdk7ovz1");
+        busiParam.put("access_token", "uxtecog43a962ee14e08afa98985c64ce6d3309feeqwhhzl");
 
         long l = SystemClock.currentTimeMillis();
         EcAopResult result = client.call(sysParamBean, busiParam);
