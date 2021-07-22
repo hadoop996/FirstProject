@@ -10,7 +10,7 @@ public class UUIDTest {
 
     public static void main(String[] args) {
         String tranId = UUID.randomUUID().toString().replaceAll("-", "");
-        System.out.println(tranId.length());
+        System.out.println(tranId);
     }
 
 }

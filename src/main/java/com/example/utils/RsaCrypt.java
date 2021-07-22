@@ -178,8 +178,7 @@ public class RsaCrypt {
     }
 
     public static void main(String[] args) throws Exception {
-        String encrypt = "DWt+Bu2ODeEgikhdL5/sYaJgQAowmJUedngCHemkZoyZiK3qx+lnzZyjCTqihTt/Hvb0HWKwwQ+MGQ4rMTsvUeel90XGWasFvp/w0LsKvKIJcC+zL/hPcYxcZ0HsxF5gHiUO8jWhA94khZ3ihgqUuA+3rqfo95PcQ7ISi9YJNis=";
-
+        String encrypt = "Q6e7rqVw3g+/6quN0p3DY4wGblygxYP9RexptXOmc0ta0JX6+Juuyry9nNUHtlv9A1CSpMtDFVb3t5l0UJSfRxXPPojZYfCPGOq6wNmeaSjbEMltbnPTQOOAwHIPGL6mUlVvXjjomUnnSqDq7vagah2pRgUv3DDT7+GfYZyXoGE=";
         //解密 a 0 测试 1生产
         String decrypt = decrypt(encrypt,"0");
         System.out.println(decrypt);

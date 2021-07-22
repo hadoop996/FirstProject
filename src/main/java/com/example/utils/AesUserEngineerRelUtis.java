@@ -255,9 +255,8 @@ public class AesUserEngineerRelUtis {
 		String IV = "7bf502cebdce578d67c333fcc5631067";
 		//加密
 		JSONObject map = new JSONObject();
-		map.put("ak","admin");
-		map.put("sk","admin");
-		map.put("ts",System.currentTimeMillis());
+		map.put("userPhone","15595693678");
+		map.put("userBroadcast","");
 //		map.put("developId","91-0910");
 		String enStr = AesUserEngineerRelUtil.hexEncode(AesUserEngineerRelUtil.aesEncrypt(map.toString().getBytes(), AesUserEngineerRelUtil.hexDecode(ENKEY), AesUserEngineerRelUtil.hexDecode(IV)));
 

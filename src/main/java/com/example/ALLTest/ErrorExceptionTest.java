@@ -1,5 +1,7 @@
 package com.example.ALLTest;
 
+import com.ohaotian.plugin.base.exception.ZTBusinessException;
+
 /**
  * @author 郝少杰
  * @date 2021/2/3 17:33
@@ -14,9 +16,10 @@ public class ErrorExceptionTest {
     public static  String getA(){
 
         try {
-            throw new Exception();
+            throw new ZTBusinessException("123");
         }catch (Exception e){
-            System.out.println("123");
+            System.out.println(e.getMessage());
+
             e.printStackTrace();
         }
         return null;

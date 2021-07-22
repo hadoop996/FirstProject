@@ -54,18 +54,18 @@ public class TetServiceImpl implements TetService{
         List<String> shandong = new ArrayList<>();
         shandong.add("202106-01.csv");
         shandong.add("202106-02.csv");
-        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\河北.csv", 1);
-        for (int i = 0;i<hebeiList.size();i++){
-        String fileName = hebeiList.get(i);
+        Map<String, String> beijing = beijing("D:\\绑定关系\\绑定关系整理\\新绑定关系\\北京0716\\北京.csv", 1);
+//        for (int i = 0;i<hebeiList.size();i++){
+        String fileName = "D:\\绑定关系\\绑定关系整理\\新绑定关系\\北京0716\\03.csv";
             exportBeijing(fileName,1,
                  listCount,beijing,listEngineer,
                  engineerNullList,errEngineer,failList,engineerPhone,engineerList,dangyuan,userBroadBandList);
-        }
-        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\失败工程师不存在.txt",errEngineer);
+//        }
+        engineerNul("D:\\绑定关系\\绑定关系整理\\新绑定关系\\北京0716\\\\失败工程师不存在.txt",errEngineer);
 
-        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\工程师不存在导致不入库.txt",failList);
+        fail("D:\\绑定关系\\绑定关系整理\\新绑定关系\\北京0716\\\\工程师不存在导致不入库.txt",failList);
 
-        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\河北0709\\智家工程师绑定关系名单(1)\\csv\\失败1\\失败工程师手机号.txt",engineerPhone);
+        engineerPhone("D:\\绑定关系\\绑定关系整理\\新绑定关系\\北京0716\\失败工程师手机号.txt",engineerPhone);
 
         log.info("总数据量{}",total);
         log.info("工程师总量{}",listEngineer.size());
@@ -116,8 +116,8 @@ public class TetServiceImpl implements TetService{
                               List<String> dangyuan,Map<String,String> userBroadBandList) throws Exception {
 //        Map<String, String> map = getMap();
         FileInputStream fins = new FileInputStream(inputFile);
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fins,"GBK"));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(fins));
         List<BroadBandInfo> checkBroadBandList = new ArrayList();
         Boolean flag = true;
         String line;
@@ -132,13 +132,13 @@ public class TetServiceImpl implements TetService{
                 failList.add(line + ",数据为空");
                 continue;
             }
-            if (fields.length<8){
+            if (fields.length<15){
                 failList.add(line+",数据格式不正确");
                 continue;
             }
 
-            String engineerPhoneExcel = fields[4].replace("\"", "");
-            String userBroadBandExcel = fields[7].replace("\"", "");
+            String engineerPhoneExcel = fields[6].replace("\"", "");
+            String userBroadBandExcel = fields[15].replace("\"", "");
 
             if (StringUtils.isEmpty(engineerPhoneExcel)) {
                 failList.add(line + ",手机号为空");
